@@ -100,20 +100,9 @@ const CustomSlider = ({ isLoading, children }) => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("TopOffer");
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert(`Copied: ${text}`);
-  };
+  
 
-  const tabs = [
-    { id: "TopOffer", label: "Best Offers" },
-    { id: "BankOffer", label: "Bank Offers" },
-    { id: "FlightsOffer", label: "Flight" },
-    { id: "HotelsOffer", label: "Hotel" },
-    { id: "BusOffer", label: "Bus" },
-    { id: "HolidayOffer", label: "Holidays" },
-    { id: "CabOffer", label: "Cabs" },
-  ];
+  
 
   const filteredData =
     activeTab === "TopOffer"

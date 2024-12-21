@@ -19,7 +19,10 @@ const state=useSelector(state=>state.sightseeingslice)
     const CityId = params.get("CityId");
     const FromDate = params.get("FromDate");
     const ToDate = params.get("ToDate");
-    
+    const currencylist=useSelector(state=>state.currencySlice);
+    const defaultcurrency= JSON.parse(localStorage.getItem("usercurrency")) || {symble:"₹",code:"INR",country:"India",}
+    const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
+
     useEffect(()=>{
 dispatch(getSightSeeingapi({CityId,CountryCode:"IN",TravelStartDate:FromDate,FromDate,ToDate,AdultCount:1,ChildCount:0,ChildAge:null,
   PreferredLanguage:0,PreferredCurrency:"INR",IsBaseCurrencyRequired:false,EndUserIp:"223.178.208.152",BookingMode:5}))
@@ -72,7 +75,13 @@ state.info.Response.SightseeingSearchResults.map((item)=>{
     </Swiper>
 
     <p className='absolute top-3 right-3 z-10 text-[white] rounded-md p-2 px-4 bg-[#EF6614] group-hover:-right-full duration-500 '>{item.CityName}</p>
-    <p className='absolute bottom-3 right-3 z-40 text-[white] rounded-md   p-1 px-4 bg-[#EF6614]  group-hover:-right-full duration-500 '>₹ {item.Price.PublishedPrice}</p>
+    <p className='absolute bottom-3 right-3 z-40 text-[white] rounded-md   p-1 px-4 bg-[#EF6614]  group-hover:-right-full duration-500 '>{defaultcurrency.symble} 
+      {(() => {
+    const publishedPrice = Number(item.Price?.PublishedPrice || 0) * cuntryprice;
+    const priceString = publishedPrice.toFixed(2);
+    const [integerPart, decimalPart] = priceString.split(".");
+    return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
+  })()}</p>
     <p className='absolute bottom-3 left-3 z-40 text-[white] max-w-[20rem] text-nowrap overflow-hidden   rounded-md p-1 px-4 bg-[#EF6614] group-hover:-left-full duration-500  '>{item.SightseeingName}</p>
             </div>
     )})

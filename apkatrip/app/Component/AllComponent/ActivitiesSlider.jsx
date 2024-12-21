@@ -52,7 +52,7 @@ const handelsearch=(value)=>{
   setAllsearchdata(value)
 }
 
-const handleSearch=()=>{
+const handelhotelSearch=()=>{
   const date = new Date(toDate);
    const date2=new Date(fromDate);
   const offset = 6*10*10*1000;
@@ -62,8 +62,8 @@ const handleSearch=()=>{
   const localFormattedDate = localDate.toISOString().slice(0, 19);
   const localFormattedDate2 = localDate2.toISOString().slice(0, 19);
 
-  
-  // 
+ // console.log(allsearchdata,localFormattedDate,localFormattedDate2)
+   
   route.push(`/activities/CityId=${allsearchdata.Code}&FromDate=${localFormattedDate}&ToDate=${localFormattedDate2}`)
 
 
@@ -270,7 +270,7 @@ onChange={(e)=>handleInputChange(e.target.value)}
             <Calendar
               aria-label="Select a date"
               value={""}
-              onChange={handelreturn}
+              onChange={handeltoDate}
               minValue={currentDate}
               disabledDatesClassName="opacity-50"
             />
@@ -327,7 +327,7 @@ onChange={(e)=>handleInputChange(e.target.value)}
       
       <div className="flex justify-center items-center">
         <button
-          //  onClick={()=>handelhotelSearch()}
+           onClick={()=>handelhotelSearch()}
           className="bg-[#0A5EB0] w-full md:w-fit  py-3 px-3  font-semibold  text-lg rounded-md  text-white "
         >
           Search Activities

@@ -10,40 +10,61 @@ import { useTranslations } from "next-intl";
 const TopFlight = () => {
   const [viewAll,setviewAll]=useState(true)
   const t=useTranslations("Popular")
+  let date= new Date(Date.now());
+  date.setMonth(date.getMonth() + 1)
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = "00";
+  const minutes = "00";
+  const seconds = "00";
+   date = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+
+  console.log(date.split("T"),"scsdlkjcndjcfvnodcf")
+  
   const cityData = [
     {
       head: t("heading1"),
       images: [
         {
           image: "/Images/london.webp",
-          title: "New York to London",
+          title: "Delhi to UAE",
           description: t("des1"),
+          link:`flightto=DEL&from=BOM&date=${date}&prfdate=${date}&JourneyType=1&adultcount=1&childCount=0&infantCount=0&selectedClass=1/`
         },
         {
           image: "/Images/lose.webp",
-          title: "Los Angeles to Tokyo",
+          title: "Mumbai to indonesia",
           description: t("des2"),
+          link:`flightto=BOM&from=BOM&date=2024-12-22T00:00:00&prfdate=2024-12-22T00:00:00&JourneyType=1&adultcount=1&childCount=0&infantCount=0&selectedClass=1/`
+
         },
         {
           image: "/Images/tokyo.webp",
-          title: " Sydney to Auckland",
+          title: " delhi to Mumbai",
           description: t("des3"),
+          link:`flightto=DEL&from=BOM&date=2024-12-22T00:00:00&prfdate=2024-12-22T00:00:00&JourneyType=1&adultcount=1&childCount=0&infantCount=0&selectedClass=1/`
+
         },
         {
           image: "/Images/rome.webp",
-          title: "Paris to Rome",
+          title: "New York to London",
           description: t("des4"),
+          link:`flightto=DEL&from=BOM&date=2024-12-22T00:00:00&prfdate=2024-12-22T00:00:00&JourneyType=1&adultcount=1&childCount=0&infantCount=0&selectedClass=1/`
+
         },
         {
           image: "/Images/dubai.webp",
-          title: "Dubai to Mumbai",
+          title: "Dubai to Hong Kong",
           description: t("des5"),
+          link:`flightto=DEL&from=BOM&date=2024-12-22T00:00:00&prfdate=2024-12-22T00:00:00&JourneyType=1&adultcount=1&childCount=0&infantCount=0&selectedClass=1/`
+
         },
       ],
     },
     {
       head: t("heading2"),
-      images: [
+      images:[
         {
           image: "/Images/europe.webp",
           title: "Explore the Wonders of Europe",
@@ -69,35 +90,42 @@ const TopFlight = () => {
           title: "Cultural Immersion in South America",
           description: t("desa5"),
         },
-      ],
+      ],     
     },
     {
       head: t("heading3"),
+
       images: [
         {
           image: "/Images/car1.webp",
-          title: "Luxury Comfort",
+          title: "Delhi",
           description: t("desb1"),
+          link:`/hotels/cityName=delhi&citycode=130443&checkin=${date.split("T")[0]}&checkout=${date.split("T")[0]}&adult=1&child=0&roomes=1&page=0&star=0/`
         },
         {
           image: "/Images/24.webp",
-          title: "24/7 Availability",
+          title: "Mumbai",
           description: t("desb2"),
+          link:`/hotels/cityName=Mumbai,%20%20%20Maharashtra&citycode=144306&checkin=${date.split("T")[0]}&checkout=${date.split("T")[0]}&adult=1&child=0&roomes=1&page=0&star=0/`
+
         },
         {
           image: "/Images/wifi.webp",
-          title: "Free Wi-Fi Access",
+          title: "Shimla",
           description: t("desb3"),
+          link:`/hotels/cityName=Shimla,%20%20%20Himachal%20Pradesh&citycode=138673&checkin=${date.split("T")[0]}&checkout=${date.split("T")[0]}&adult=1&child=0&roomes=1&page=0&star=0/`
         },
         {
           image: "/Images/safety-first.webp",
-          title: "Safety First",
+          title: "Guwahati Assam",
           description: t("desb4"),
+          link:`/hotels/cityName=Guwahati,%20%20%20Assam&citycode=121139&checkin=${date.split("T")[0]}&checkout=${date.split("T")[0]}&adult=1&child=0&roomes=1&page=0&star=0/`
         },
         {
           image: "/Images/businesswoman.webp",
-          title: "Personalized Service",
+          title: "Amritsar Punjab",
           description: t("desb5"),
+link:`/hotels/cityName=Amritsar,%20%20%20Punjab&citycode=101129&checkin=${date.split("T")[0]}&checkout=${date.split("T")[0]}&adult=1&child=0&roomes=1&page=0&star=0/`
         },
       ],
     },
@@ -141,7 +169,7 @@ const TopFlight = () => {
           <div className=" grid grid-cols-1 md:grid-cols-2   lg:grid-cols-3  gap-8  xl:px-5 pb-5 justify-center ">
             {cityData.map((city, index) => (
               <div
-                className="bg-white border shadow-md my-5 lg:my-0  mx-auto lg:mx-2 rounded-xl overflow-hidden relative  w-full"
+                className="bg-white border shadow-md my-5 lg:my-0  mx-auto lg:mx-2 rounded-xl overflow-hidden relative  w-full "
                 key={index}
               >
                 <div className="city-head bg-[#0291d2] text-center">
@@ -151,9 +179,11 @@ const TopFlight = () => {
                 </div>
                 <div className=" ">
                   {city.images.map((imageData, i) => (
-                    <div
-                      className="items-center border-b px-4 flex hover:shadow-lg"
+                    <Link
+                    href={`${index !=1?imageData.link:"/hotels"}`}
+                      className="items-center border-b px-4 flex hover:shadow-lg cursor-pointer"
                       key={i}
+
                     >
                       <div className="city-image">
                         <img
@@ -170,7 +200,7 @@ const TopFlight = () => {
                           {imageData.description}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

@@ -23,7 +23,9 @@ const [busSeatInfo,setBusSeatInfo]=useState();
 const [busBoarding,setBusBoarding]=useState();
 const [bookseatdeatle,setBookseatdeatle]=useState()
 const [bookinginfopage,setbookinginfopage]=useState(false)
-
+const currencylist=useSelector(state=>state.currencySlice);
+const defaultcurrency= JSON.parse(localStorage.getItem("usercurrency")) || {symble:"₹",code:"INR",country:"India",}
+const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
 useEffect(()=>{
 
 dispatch(getBusSeatLayout({TraceId:index,ResultIndex:resultindex}))
@@ -256,7 +258,12 @@ const handelseetbook=(seat)=>{
               Seat {seat.SeatName}
             </span>
             <span className="text-sm text-gray-500">
-              ₹{seat.Price.OfferedPriceRoundedOff}
+               {defaultcurrency.symble}   {(() => {
+    const offeredPrice = Number(seat.Price?.OfferedPriceRoundedOff || 0);
+    const priceString = offeredPrice.toFixed(2);
+    const [integerPart, decimalPart] = priceString.split(".");
+    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
+  })()}
             </span>
 
           

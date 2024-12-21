@@ -20,7 +20,9 @@ const DestinationId=params.get("DestinationId")
 
 const DateOfJourney=params.get("DateOfJourney")
 
-
+const currencylist=useSelector(state=>state.currencySlice);
+const defaultcurrency= JSON.parse(localStorage.getItem("usercurrency")) || {symble:"₹",code:"INR",country:"India",}
+const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
 const dispatch=useDispatch()
 const state=useSelector(state=>state.busslice)
 useEffect(()=>{
@@ -182,7 +184,21 @@ dispatch(getBusSeatLayout({TraceId:state.info.BusSearchResult.TraceId,ResultInde
                     <div className="priceSection flex flex-col items-end">
                       <div className="mb-2">
                         <span className="text-lg font-bold text-green-600">
-                          ₹{bus.BusPrice.PublishedPrice +bus.BusPrice.AgentCommission}
+                          {defaultcurrency.symble}  
+                          {(() => {
+    const publishedPrice = Number(bus.BusPrice?.PublishedPrice || 0);
+    const agentCommission = Number(bus.BusPrice?.AgentCommission || 0);
+
+    const totalPrice = (publishedPrice + agentCommission) * cuntryprice;
+
+    const priceString = totalPrice.toFixed(2);
+
+    // Split into integer and decimal parts
+    const [integerPart, decimalPart] = priceString.split(".");
+
+    // Ensure the decimal part has exactly two digits and return the formatted price
+    return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
+  })()}
                         </span>
                       </div>
                     </div>
