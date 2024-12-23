@@ -16,8 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class BookedhotelsResource extends Resource
 {
     protected static ?string $model = Bookedhotels::class;
+    protected static ?string $navigationIcon = 'ri-hotel-line';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Hotels Bookings';
+    // protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $navigationGroup = 'Booking Managment';
+
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {

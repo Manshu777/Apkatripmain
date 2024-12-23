@@ -9,6 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "afatmustafa/blade-hugeicons": "^0.0.4",
+        "andreiio/blade-remix-icon": "^3.6",
+        "codeat3/blade-clarity-icons": "^1.9",
+        "codeat3/blade-fontisto-icons": "^1.4",
+        "codeat3/blade-iconpark": "^1.6",
+        "codeat3/blade-jam-icons": "^1.6",
         "dotswan/filament-map-picker": "*",
         "ercogx/filament-openai-assistant": "^1.0",
         "filament/filament": "^3.2",

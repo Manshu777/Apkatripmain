@@ -17,7 +17,12 @@ class BookflightsResource extends Resource
 {
     protected static ?string $model = Bookflights::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'hugeicons-airplane-take-off-01';
+
+    protected static ?string $navigationLabel = 'Flight Bookings';
+    // protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $navigationGroup = 'Booking Managment';
+
 
     public static function form(Form $form): Form
     {

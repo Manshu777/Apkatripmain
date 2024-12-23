@@ -19,7 +19,12 @@ class CruiseResource extends Resource
 {
     protected static ?string $model = Cruise::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationIcon = 'iconpark-cruise-o';
+
+    protected static ?string $navigationLabel = 'Cruise Bookings';
+    // protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $navigationGroup = 'Booking Managment';
 
     public static function form(Form $form): Form
     {
