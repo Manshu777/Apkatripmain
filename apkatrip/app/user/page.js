@@ -16,9 +16,7 @@ const page = () => {
   const openPopup = (type) => {
     setIsPopupOpen(type);
   };
-  const closePopup = () => {
-    setIsPopupOpen(false);
-  };
+  
 
   const [fullName, setFullName] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -49,6 +47,17 @@ const page = () => {
     issueingCountry: "",
     airline: "",
   });
+
+
+  const closePopup = async() => {
+    // setIsPopupOpen(profileData);
+    const user=  JSON.parse(localStorage.getItem("apkatripUser"));
+    const data= await axios.put(`${apilink}/user/${user}`,profileData)
+    console.log(data.data,"sdfsdfmsdfcwepofwe")
+    
+  };
+
+
 
   const handleSave = (e) => {
     e.preventDefault();

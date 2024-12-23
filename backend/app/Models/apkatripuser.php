@@ -19,7 +19,11 @@ protected $fillable=[
 "password",
 "address",
 "statue",
-"other_details"
+"other_details",
+"dob",
+"gender",
+"marital_status",
+"pincode"
 ];
 protected $casts = [
     'other_details' => 'array', // Corrected 'arry' to 'array'

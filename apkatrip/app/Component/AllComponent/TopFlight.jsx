@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InfoSection from "./InfoSection";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import axios from "axios";
+import { apilink } from "../common";
 
 
 const TopFlight = () => {
@@ -152,6 +154,19 @@ link:`/hotels/cityName=Amritsar,%20%20%20Punjab&citycode=101129&checkin=${date.s
  
     { name: "Thar", icon: "🏜️", link: "/FamousPlaces/Kerala" },
   ];
+  const [topport,settopport]=useState()
+
+
+useEffect(()=>{
+const fetchTopport=async()=>{
+  const data= await axios.get(`${apilink}/Popular-Flight`)
+  settopport(data.data,"sdfsdfjwe")
+}
+fetchTopport()
+
+},[ ])
+
+
 
   return (
     <>
@@ -167,20 +182,58 @@ link:`/hotels/cityName=Amritsar,%20%20%20Punjab&citycode=101129&checkin=${date.s
           </div>
 
           <div className=" grid grid-cols-1 md:grid-cols-2   lg:grid-cols-3  gap-8  xl:px-5 pb-5 justify-center ">
-            {cityData.map((city, index) => (
+            
               <div
                 className="bg-white border shadow-md my-5 lg:my-0  mx-auto lg:mx-2 rounded-xl overflow-hidden relative  w-full "
-                key={index}
               >
                 <div className="city-head bg-[#0291d2] text-center">
                   <h4 className="text-white text-lg font-semibold py-3">
-                    {city.head}
+                    {t("heading1")}
+                  </h4>
+                </div>
+                {topport &&  <div className=" ">
+                  {topport.map((imageData, i) => (
+                    <Link
+                  
+                    href={`flightto=${imageData.from_code}&from=${imageData.to_code}&date=${date}&prfdate=${date}&JourneyType=1&adultcount=1&childCount=0&infantCount=0&selectedClass=1/`}
+                      className="items-center border-b px-4 flex hover:shadow-lg cursor-pointer"
+                      key={i}
+
+                    >
+                      <div className="city-image">
+                        <img
+                          src={cityData[0].images[i].image}
+                          alt={imageData.from}
+                          className="rounded-full h-9 object-cover w-9"
+                        />
+                      </div>
+                      <div className="px-4 w-[80%]">
+                        <h3 className="text-sm font-semibold mb-0 mt-4 ">
+                          {imageData.from} to {imageData.to}
+                        </h3>
+                        <p className="text-[#525252] text-xs font-normal mb-5 pt-1">
+                          {imageData.dis}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div> }
+              </div>
+            
+
+              <div
+                className="bg-white border shadow-md my-5 lg:my-0  mx-auto lg:mx-2 rounded-xl overflow-hidden relative  w-full "
+               
+              >
+                <div className="city-head bg-[#0291d2] text-center">
+                  <h4 className="text-white text-lg font-semibold py-3">
+                    {t("heading2")}
                   </h4>
                 </div>
                 <div className=" ">
-                  {city.images.map((imageData, i) => (
+                  {cityData[1].images.map((imageData, i) => (
                     <Link
-                    href={`${index !=1?imageData.link:"/hotels"}`}
+                    href='/'
                       className="items-center border-b px-4 flex hover:shadow-lg cursor-pointer"
                       key={i}
 
@@ -204,7 +257,53 @@ link:`/hotels/cityName=Amritsar,%20%20%20Punjab&citycode=101129&checkin=${date.s
                   ))}
                 </div>
               </div>
-            ))}
+
+
+
+
+
+
+
+
+
+              <div
+                className="bg-white border shadow-md my-5 lg:my-0  mx-auto lg:mx-2 rounded-xl overflow-hidden relative  w-full "
+               
+              >
+                <div className="city-head bg-[#0291d2] text-center">
+                  <h4 className="text-white text-lg font-semibold py-3">
+                    {t("heading3")}
+                  </h4>
+                </div>
+                <div className=" ">
+                  {cityData[2].images.map((imageData, i) => (
+                    <Link
+                    href={imageData.link}
+                      className="items-center border-b px-4 flex hover:shadow-lg cursor-pointer"
+                      key={i}
+
+                    >
+                      <div className="city-image">
+                        <img
+                          src={imageData.image}
+                          alt={imageData.title}
+                          className="rounded-full h-9 object-cover w-9"
+                        />
+                      </div>
+                      <div className="px-4 w-[80%]">
+                        <h3 className="text-sm font-semibold mb-0 mt-4 ">
+                          {imageData.title}
+                        </h3>
+                        <p className="text-[#525252] text-xs font-normal mb-5 pt-1">
+                          {imageData.description}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+
           </div>
         </main>
       </div>

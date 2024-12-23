@@ -204,109 +204,81 @@ const [defaultcurrency,setdefaultcurrency]=useState( JSON.parse(localStorage.get
   ];
 
   const currency=[
-{
-  symble:"₹",
-  code:"INR",
-  country:"India",
-},
-{country:"America",
-  symble:"$",
-  code:"USD"
-},
-{country:"Europen",
-  symble:"€",
-  code:"EUR"
-},
-{country:"China",
-  symble:"¥",
-  code:"CNY"
-},
-{country:"Russia",
-  symble:"₽",
-  code:"RUB"
-},
-{country:"Japan",
-  symble:"¥",
-  code:"JPY"
-},
-{country:"Australia",
-  symble:"$",
-  code:"AUD"
-},
-{
-  country:"Canada",
-  symble:"$",
-  code:"CAD"
-},
-{country:"India",
-  symble:"د.إ",
-  code:"AED"
-},
-{country:"India",
-  symble:"؋",
-  code:"AFN"
-},
-{country:"India",
-  symble:"L",
-  code:"ALL"
-},
-{country:"India",
-  symble:"฿",
-  code:"THB"
-},
-{country:"India",
-  symble:"Rp",
-  code:"IDR"
-},
-{country:"India",
-  symble:"د.ع",
-  code:"IQD"
-},{country:"India",
-  symble:"د.ك",
-  code:"KWD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-{country:"India",
-  symble:"$",
-  code:"USD"
-},
-
-
+    {
+      country: "India",
+      symble: "₹",
+      code: "INR",
+    },
+    {
+      country: "United States",
+      symble: "$",
+      code: "USD",
+    },
+    {
+      country: "European Union",
+      symble: "€",
+      code: "EUR",
+    },
+    {
+      country: "China",
+      symble: "¥",
+      code: "CNY",
+    },
+    {
+      country: "Russia",
+      symble: "₽",
+      code: "RUB",
+    },
+    {
+      country: "Japan",
+      symble: "¥",
+      code: "JPY",
+    },
+    {
+      country: "Australia",
+      symble: "$",
+      code: "AUD",
+    },
+    {
+      country: "Canada",
+      symble: "$",
+      code: "CAD",
+    },
+    {
+      country: "United Arab Emirates",
+      symble: "د.إ",
+      code: "AED",
+    },
+    {
+      country: "Afghanistan",
+      symble: "؋",
+      code: "AFN",
+    },
+    {
+      country: "Albania",
+      symble: "L",
+      code: "ALL",
+    },
+    {
+      country: "Thailand",
+      symble: "฿",
+      code: "THB",
+    },
+    {
+      country: "Indonesia",
+      symble: "Rp",
+      code: "IDR",
+    },
+    {
+      country: "Iraq",
+      symble: "د.ع",
+      code: "IQD",
+    },
+    {
+      country: "Kuwait",
+      symble: "د.ك",
+      code: "KWD",
+    },
   ];
 
 useEffect(()=>{

@@ -438,12 +438,12 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
             !state.isLoading &&
             info.data.Response &&
             info.data.Response.ResponseStatus == 3 && (
-              <div class="text-center">
-                <h1 class="mb-4 text-6xl font-semibold text-red-500">Oops!</h1>
-                <p class="mb-4 text-lg text-gray-600"> Flight not found.</p>
-                <div class="animate-bounce">
+              <div className="text-center">
+                <h1 className="mb-4 text-6xl font-semibold text-red-500">Oops!</h1>
+                <p className="mb-4 text-lg text-gray-600"> Flight not found.</p>
+                <div className="animate-bounce">
                   <svg
-                    class="mx-auto h-16 w-16 text-red-500"
+                    className="mx-auto h-16 w-16 text-red-500"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -456,9 +456,9 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
                     ></path>
                   </svg>
                 </div>
-                <p class="mt-4 text-gray-600">
+                <p className="mt-4 text-gray-600">
                   Let's get you back{" "}
-                  <Link href="/" class="text-blue-500">
+                  <Link href="/" className="text-blue-500">
                     home
                   </Link>
                 </p>
@@ -471,12 +471,12 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
             !state.isLoading &&
             info.data.Response &&
             info.data.Response.ResponseStatus == 2 && (
-              <div class="text-center">
-                <h1 class="mb-4 text-6xl font-semibold text-red-500">Oops!</h1>
-                <p class="mb-4 text-lg text-gray-600"> Flight not found.</p>
-                <div class="animate-bounce">
+              <div className="text-center">
+                <h1 className="mb-4 text-6xl font-semibold text-red-500">Oops!</h1>
+                <p className="mb-4 text-lg text-gray-600"> Flight not found.</p>
+                <div className="animate-bounce">
                   <svg
-                    class="mx-auto h-16 w-16 text-red-500"
+                    className="mx-auto h-16 w-16 text-red-500"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -489,9 +489,9 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
                     ></path>
                   </svg>
                 </div>
-                <p class="mt-4 text-gray-600">
+                <p className="mt-4 text-gray-600">
                   Let's get you back{" "}
-                  <Link href="/" class="text-blue-500">
+                  <Link href="/" className="text-blue-500">
                     home
                   </Link>
                   .

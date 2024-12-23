@@ -1,9 +1,12 @@
 // components/HeroSlider.js
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { apilink } from "../common";
 
 const HeroSlider = () => {
   const settings = {
@@ -62,6 +65,14 @@ const HeroSlider = () => {
     },
     // Add more slide objects if needed
   ];
+  const [searchInput,setSearchInput]=useState("")
+  const route=useRouter();
+
+  const handleSearch=()=>{
+route.push(`/holidayspackage/${searchInput}`)
+  }
+
+
 
   return (
     <div className="relative overflow-hidden lg:overflow-visible pt-6 lg:pt-0 h-80 mb-20">
@@ -101,12 +112,14 @@ const HeroSlider = () => {
               id="txtDesCity"
               className="ml-2 flex-grow border-none p-2 w-full rounded-lg placeholder-gray-500"
               placeholder="Enter Your Dream Destination!"
+              value={searchInput}
+              onChange={(e)=>setSearchInput(e.target.value)}
             />
           </div>
           <button
             className="ml-2 primary-col text-white px-8 py-2 h-14  rounded-full hover:bg-[#ef6414ed]"
             type="button"
-            // onClick={handleSearch}
+            onClick={handleSearch}
           >
             Search
           </button>

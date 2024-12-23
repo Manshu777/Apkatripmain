@@ -167,15 +167,15 @@ const Footer = () => {
 
         <div className="mx-auto max-w-7xl lg:py-10 px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-10">
           <div className="Recomended TabChanges space-y-4">
-            <p class="text-sm font-semibold text-gray-700 lg:text-3xl ">
-              Recommended by <span class="text-blue-500">ApkaTrip.com</span>
+            <p className="text-sm font-semibold text-gray-700 lg:text-3xl ">
+              Recommended by <span className="text-blue-500">ApkaTrip.com</span>
             </p>
 
             <div className="tabSection">
-              <div class="flex items-center  gap-3 ">
+              <div className="flex items-center  gap-3 ">
                 <button
                   onClick={() => setActiveTab(1)}
-                  class={`${
+                  className={`${
                     activeTab == 1
                       ? "bg-slate-700 text-white"
                       : "bg-slate-100 hover:text-blue-500"
@@ -185,7 +185,7 @@ const Footer = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab(2)}
-                  class={`${
+                  className={`${
                     activeTab == 2
                       ? "bg-slate-700 text-white"
                       : "bg-slate-100 hover:text-blue-500"

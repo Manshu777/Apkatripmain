@@ -17,12 +17,12 @@ const InfoSection = () => {
             />
           </div>
           <div>
-            <div className="font-semibold text-lg mb-1">Important Info:</div>
+            <div className="font-semibold text-lg mb-1">Update Info:</div>
             <div className="text-gray-700 text-sm">
-              To cancel/claim refund or reschedule/modify your booking.
+             Last Update of Site
               <span>
                 <Link
-                 href="/MyBooking/mybooking/"
+                 href="/last-update"
                   className="text-blue-500"
                 >
                   &nbsp; Click here...

@@ -44,27 +44,27 @@ return ()=>clearInterval(intervel)
 
 
 
-      <div class=" flex flex-col items-center mt-8 ml-2">
-                        <p class="text-gray-600 uppercase text-sm">Time left until lunching</p>
-                        <div class="flex items-center justify-center space-x-4 mt-4" x-data="timer(new Date().setDate(new Date().getDate() + 1))" x-init="init();">
-                            <div class="flex flex-col items-center px-4">
-                                <span x-text="time().days" class="text-4xl lg:text-5xl text-gray-600">{day}</span>
-                                <span class="text-gray-400 mt-2">Days</span>
+      <div className=" flex flex-col items-center mt-8 ml-2">
+                        <p className="text-gray-600 uppercase text-sm">Time left until lunching</p>
+                        <div className="flex items-center justify-center space-x-4 mt-4" x-data="timer(new Date().setDate(new Date().getDate() + 1))" x-init="init();">
+                            <div className="flex flex-col items-center px-4">
+                                <span x-text="time().days" className="text-4xl lg:text-5xl text-gray-600">{day}</span>
+                                <span className="text-gray-400 mt-2">Days</span>
                             </div>
-                            <span class="w-[1px] h-24 bg-gray-400"></span>
-                            <div class="flex flex-col items-center px-4">
-                                <span x-text="time().hours" class="text-4xl lg:text-5xl text-gray-600">{hour}</span>
-                                <span class="text-gray-400 mt-2">Hours</span>
+                            <span className="w-[1px] h-24 bg-gray-400"></span>
+                            <div className="flex flex-col items-center px-4">
+                                <span x-text="time().hours" className="text-4xl lg:text-5xl text-gray-600">{hour}</span>
+                                <span className="text-gray-400 mt-2">Hours</span>
                             </div>
-                            <span class="w-[1px] h-24 bg-gray-400"></span>
-                            <div class="flex flex-col items-center px-4">
-                                <span x-text="time().minutes" class="text-4xl lg:text-5xl text-gray-600">{minute}</span>
-                                <span class="text-gray-400 mt-2">Minutes</span>
+                            <span className="w-[1px] h-24 bg-gray-400"></span>
+                            <div className="flex flex-col items-center px-4">
+                                <span x-text="time().minutes" className="text-4xl lg:text-5xl text-gray-600">{minute}</span>
+                                <span className="text-gray-400 mt-2">Minutes</span>
                             </div>
-                            <span class="w-[1px] h-24 bg-gray-400"></span>
-                            <div class="flex flex-col items-center px-4">
-                                <span x-text="time().seconds" class="text-4xl lg:text-5xl text-gray-600">{sec}</span>
-                                <span class="text-gray-400 mt-2">Seconds</span>
+                            <span className="w-[1px] h-24 bg-gray-400"></span>
+                            <div className="flex flex-col items-center px-4">
+                                <span x-text="time().seconds" className="text-4xl lg:text-5xl text-gray-600">{sec}</span>
+                                <span className="text-gray-400 mt-2">Seconds</span>
                             </div>
                         </div>                      
                     </div>

@@ -66,8 +66,7 @@ class SiteUser extends Controller
             ]);
         }
        
-
- return response()->json([
+        return response()->json([
             'message' => 'User registered successfully',
             'success' => true,
             'info' => $addUser,
@@ -154,7 +153,16 @@ return response()->json(["success"=>true,"user"=>$user]);
 
 }
 
+public function updateUser( string $id,Request $request){
+   
+    $user=apkatripuser::find($id);
+$user->update(["name"=>$request["fullName"],"dob"=>$request["birthday"],"gender"=>$request["gender"],"marital_status","address"=>$request["address"]]);
 
+    return $request;
+
+
+
+}
 
 }
 

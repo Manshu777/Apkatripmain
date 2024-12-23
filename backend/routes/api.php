@@ -111,6 +111,7 @@ Route::post("v1/user/verifyotp", [SiteUser::class, "verifyOtp"]);
 
 Route::post("v1/user/login", [SiteUser::class, "loginUser"]);
 Route::get("v1/user/{id}", [SiteUser::class, "getSingleuser"]);
+Route::put("v1/user/{id}", [SiteUser::class, "updateUser"]);
 
 
 use App\Http\Controllers\InsuranceController;
@@ -137,3 +138,17 @@ Route::resource('v1/hotels/checkins', CheckinsController::class);
 use App\Http\Controllers\BookedhotelsController;
 
 Route::post("v1/hotelreg/booked",[BookedhotelsController::class,"bookhotel"]);
+
+use App\Http\Controllers\LastUpdateController;
+Route::get("v1/latestUpdate",[LastUpdateController::class,"getLAstUpdate"]);
+
+use App\Http\Controllers\Popular_destController;
+
+Route::get("/v1/Popular-Flight",[Popular_destController::class,"Popular_flight"]);
+Route::get("/v1/Popular-hotel",[Popular_destController::class,"Popular_hotel"]);
+
+
+use App\Http\Controllers\HolidayspackageController;
+
+Route::get("/v1/search-holidays-package/{name}",[HolidayspackageController::class,"SearchHolidayspackage"]);
+

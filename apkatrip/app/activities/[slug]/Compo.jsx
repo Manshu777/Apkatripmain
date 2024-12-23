@@ -41,7 +41,7 @@ dispatch(getseeingApi({EndUserIp:"223.178.208.152",ResultIndex:info.ResultIndex,
 
       { state && state.isLoading && <div className='flex h-[70vh] justify-center items-center' >
 
-        <img class=" h-32 w-32 animate-spin" src="https://www.svgrepo.com/show/70469/loading.svg" alt="Loading icon" />
+        <img className=" h-32 w-32 animate-spin" src="https://www.svgrepo.com/show/70469/loading.svg" alt="Loading icon" />
 
       </div>
 
