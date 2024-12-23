@@ -22,6 +22,8 @@ use App\Http\Controllers\TransferSearchController;
 use App\Http\Controllers\ImageController;
 
 use App\Http\Controllers\HotelRegesController;
+
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -35,6 +37,13 @@ Route::post('v1/farerule', [FlightController::class, 'fareRules']);
 
 Route::post('v1/advance-ssr', [FlightController::class, 'ssrrequest']);
 Route::post('v1/farequate', [FlightController::class, 'farequate']);
+
+// generateTicket
+Route::post('v1/flight-book', [FlightController::class, 'bookFlight']);
+Route::post('v1/genrate-ticket', [FlightController::class, 'generateTicket']);
+Route::post('v1/get-calendar-fare', [FlightController::class, 'getCalendarFare']);
+// generateTicket
+
 
 
 

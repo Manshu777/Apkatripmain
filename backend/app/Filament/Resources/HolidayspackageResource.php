@@ -24,7 +24,12 @@ class HolidayspackageResource extends Resource
 {
     protected static ?string $model = Holidayspackage::class;
 
-    protected static ?string $navigationIcon = 'heroicon-m-magnifying-glass';
+    protected static ?string $navigationIcon = 'fontisto-holiday-village';
+
+    protected static ?string $navigationLabel = 'Holidays Packages';
+    // protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $navigationGroup = 'Holidays Packages';
+
 
     public static function form(Forms\Form $form): Forms\Form
     {

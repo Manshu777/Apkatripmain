@@ -21,6 +21,7 @@ class Hotel extends Authenticatable
         "slug",
         'phone',
         'useractive',
+        'is_active', 
     ];
 
     protected $hidden = [

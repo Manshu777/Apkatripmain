@@ -26,7 +26,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+
             ->login()
+
             ->colors([
                 'danger' => Color::Red,        
                 'gray' => Color::Slate,        // A sophisticated white-gray with a modern feel
@@ -57,6 +59,9 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+            ])
+            ->plugins([
+                \Ercogx\FilamentOpenaiAssistant\OpenaiAssistantPlugin::make()
             ])
             ->authMiddleware([
                 Authenticate::class,

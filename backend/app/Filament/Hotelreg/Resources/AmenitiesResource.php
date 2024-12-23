@@ -25,11 +25,6 @@ class AmenitiesResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function query(): Builder
-    {
-        return Amenities::query()->where('hotel_details_id', auth()->user()->hotel_details_id);
-    }
-
     public static function form(Form $form): Form
     {
         return $form

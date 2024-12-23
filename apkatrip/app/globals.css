@@ -10,6 +10,8 @@
 }
 
 
+
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -43,6 +45,49 @@ a.text-sm {
   background-repeat: no-repeat !important;
 }
 
+/* Skeleton Loader Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    to right,
+    #e2e8f0 0%,
+    #f1f5f9 50%,
+    #e2e8f0 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.375rem; /* Rounded corners (6px) */
+}
+
+/* Skeleton Loader Variants */
+.skeleton.h-6 {
+  height: 1.5rem; /* Height: 24px */
+}
+
+.skeleton.h-4 {
+  height: 1rem; /* Height: 16px */
+}
+
+.skeleton.w-1-2 {
+  width: 50%; /* Width: 50% */
+}
+
+.skeleton.w-1-4 {
+  width: 25%; /* Width: 25% */
+}
+
+.skeleton.mb-2 {
+  margin-bottom: 0.5rem; /* Margin Bottom: 8px */
+}
+
 
 
 
@@ -55,6 +100,8 @@ a.text-sm {
   background: url(../public/Images/hote2.webp);
 
 }
+
+
 
 .fphmenuico {
   background: url(../public/Images/hotelplane.webp);

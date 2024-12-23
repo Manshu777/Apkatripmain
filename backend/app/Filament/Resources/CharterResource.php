@@ -18,7 +18,13 @@ class CharterResource extends Resource
 {
     protected static ?string $model = Charter::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $navigationIcon = 'clarity-plane-solid';
+
+    protected static ?string $navigationLabel = 'Charter Bookings';
+    // protected static ?string $navigationIcon = 'heroicon-o-home-modern';
+    protected static ?string $navigationGroup = 'Booking Managment';
 
     public static function form(Form $form): Form
     {

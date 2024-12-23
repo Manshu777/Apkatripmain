@@ -76,6 +76,174 @@ class FlightController extends Controller
         return     $response;
     }
 
+    public function bookFlight(Request $request)
+    {
+        $token = $this->apiService->getToken();
+
+        $validatedData = $request->validate([
+            'ResultIndex' => 'required|string',
+            'Passengers' => 'required|array|min:1',
+            'Passengers.*.Title' => 'required|string',
+            'Passengers.*.FirstName' => 'required|string',
+            'Passengers.*.LastName' => 'required|string',
+            'Passengers.*.PaxType' => 'required|integer',
+            'Passengers.*.DateOfBirth' => 'required|date',
+            'Passengers.*.Gender' => 'required|integer',
+            'Passengers.*.PassportNo' => 'nullable|string',
+            'Passengers.*.PassportExpiry' => 'nullable|date',
+            'Passengers.*.AddressLine1' => 'required|string',
+            'Passengers.*.City' => 'required|string',
+            'Passengers.*.CountryCode' => 'required|string',
+            'Passengers.*.ContactNo' => 'required|string',
+            'Passengers.*.Email' => 'required|email',
+            'Passengers.*.IsLeadPax' => 'required|boolean',
+            'EndUserIp' => 'required|string',
+            'TraceId' => 'required|string',
+        ]);
+
+        $bookingPayload = [
+            "ResultIndex" => $validatedData['ResultIndex'],
+            "Passengers" => $validatedData['Passengers'],
+            "EndUserIp" => $validatedData['EndUserIp'],
+            "TokenId" => $token,
+            "TraceId" => $validatedData['TraceId']
+        ];
+
+        $response = Http::timeout(100)->post('http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Book', $bookingPayload);
+
+        if ($response->json('Response.Error.ErrorCode') === 6) {
+            $token = $this->apiService->authenticate();
+            $bookingPayload['TokenId'] = $token;
+            $response = Http::timeout(90)->post('http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Book', $bookingPayload);
+        }
+
+        return $response;
+    }
+
+    public function getCalendarFare(Request $request)
+    {
+        $token = $this->apiService->getToken();
+        try {
+           
+            $validated = $request->validate([
+                'JourneyType' => 'integer',
+                'EndUserIp' => 'ip',
+               
+                'Segments' => 'required|array',
+                'Segments.*.Origin' => 'string|max:3',
+                'Segments.*.Destination' => 'required|string|max:3',
+                'Segments.*.FlightCabinClass' => 'required|integer',
+                'Segments.*.PreferredDepartureTime' => 'required|date',
+            ]);
+
+
+            $apiUrl = "http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/GetCalendarFare";
+
+
+            $response = Http::post($apiUrl, [
+                "JourneyType" => $validated['JourneyType'],
+                "EndUserIp" => $validated['EndUserIp'],
+                "TokenId" => $token,
+                "PreferredAirlines" => $request->input('PreferredAirlines', null),
+                "Segments" => $validated['Segments'],
+                "Sources" => $request->input('Sources', null),
+            ]);
+
+            // Check if the response is successful
+            if ($response->successful()) {
+                return response()->json($response->json());
+            }
+
+            // Log error for unsuccessful responses
+            Log::error('API returned an error', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+
+            return response()->json([
+                'error' => 'Unable to fetch data from external API',
+                'details' => $response->json(),
+            ], $response->status());
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Handle validation errors
+            return response()->json([
+                'error' => 'Validation failed',
+                'details' => $e->errors(),
+            ], 422);
+        } catch (\Exception $e) {
+            // Catch any other exceptions
+            Log::error('An error occurred', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'error' => 'An unexpected error occurred',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateTicket(Request $request)
+{
+    $token = $this->apiService->getToken();
+
+    // Validate incoming request data
+    $validatedData = $request->validate([
+        'PreferredCurrency' => 'nullable|string',
+        'AgentReferenceNo' => 'required|string',
+        'Passengers' => 'required|array|min:1',
+        'Passengers.*.Title' => 'required|string',
+        'Passengers.*.FirstName' => 'required|string',
+        'Passengers.*.LastName' => 'required|string',
+        'Passengers.*.PaxType' => 'required|integer',
+        'Passengers.*.DateOfBirth' => 'required|date',
+        'Passengers.*.Gender' => 'required|integer',
+        'Passengers.*.PassportNo' => 'nullable|string',
+        'Passengers.*.PassportExpiry' => 'nullable|date',
+        'Passengers.*.AddressLine1' => 'required|string',
+        'Passengers.*.City' => 'required|string',
+        'Passengers.*.CountryCode' => 'required|string',
+        'Passengers.*.ContactNo' => 'required|string',
+        'Passengers.*.Email' => 'required|email',
+        'Passengers.*.IsLeadPax' => 'required|boolean',
+        'Passengers.*.Fare' => 'required|array',
+        'Passengers.*.Baggage' => 'nullable|array',
+        'Passengers.*.MealDynamic' => 'nullable|array',
+        'Passengers.*.SeatDynamic' => 'nullable|array',
+        'Passengers.*.SpecialServices' => 'nullable|array',
+        'EndUserIp' => 'required|string',
+        'TraceId' => 'required|string',
+        'ResultIndex' => 'required|string',
+    ]);
+
+    // Prepare payload for the Ticket API request
+    $ticketPayload = [
+        "PreferredCurrency" => $validatedData['PreferredCurrency'] ?? null,
+        "AgentReferenceNo" => $validatedData['AgentReferenceNo'],
+        "Passengers" => $validatedData['Passengers'],
+        "EndUserIp" => $validatedData['EndUserIp'],
+        "TokenId" => $token,
+        "TraceId" => $validatedData['TraceId'],
+        "ResultIndex" => $validatedData['ResultIndex']
+    ];
+
+    // Call the Ticket API
+    $response = Http::timeout(100)->post('http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Ticket', $ticketPayload);
+
+    // Handle token expiration (Error code 6)
+    if ($response->json('Response.Error.ErrorCode') === 6) {
+        $token = $this->apiService->authenticate();
+        $ticketPayload['TokenId'] = $token;
+
+        $response = Http::timeout(90)->post('http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/Ticket', $ticketPayload);
+    }
+
+    // Return the API response
+    return $response->json();
+}
+
+
 
 
 
@@ -245,7 +413,7 @@ class FlightController extends Controller
 
         ]);
         $validatedData["TokenId"] = $token;
-        $response;
+
         $response = Http::timeout(100)->withHeaders([])->post('http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/FareRule', $validatedData);
         if ($response->json('Response.Error.ErrorCode') === 6) {
 
@@ -306,7 +474,7 @@ class FlightController extends Controller
 
         ]);
         $validatedData["TokenId"] = $token;
-        $response;
+    
         $response = Http::timeout(100)->withHeaders([])->post('http://api.tektravels.com/BookingEngineService_Air/AirService.svc/rest/FareQuote', $validatedData);
         if ($response->json('Response.Error.ErrorCode') === 6) {
 

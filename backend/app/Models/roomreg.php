@@ -24,6 +24,7 @@ class roomreg extends Model
         'room_des',
         'additional_serv',
         'image',
+        'hotel_reg_new_id'
     ];
 
     protected $casts = [
@@ -35,10 +36,10 @@ class roomreg extends Model
     /**
      * Relationship with HotelDetails.
      */
-    public function hotelDetails()
-    {
-        return $this->belongsTo(HotelDetails::class, 'hotel_details_id');
-    }
+    // public function hotelDetails()
+    // {
+    //     return $this->belongsTo(HotelDetails::class, 'hotel_details_id');
+    // }
 
 
 
