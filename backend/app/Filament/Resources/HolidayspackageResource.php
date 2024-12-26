@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\HolidayspackageResource\Pages;
-use App\Models\Holidayspackage;
+use App\Models\TravelPackage;
 use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class HolidayspackageResource extends Resource
 {
-    protected static ?string $model = Holidayspackage::class;
+    protected static ?string $model = TravelPackage::class;
 
     protected static ?string $navigationIcon = 'fontisto-holiday-village';
 
@@ -34,143 +34,100 @@ class HolidayspackageResource extends Resource
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
-            ->schema([
-                TextInput::make('name')
+            ->schema(
+                [
+                    TextInput::make('package_name')
                     ->required()
                     ->label('Package Name'),
-                TextInput::make('location')
+    
+                Select::make('package_Type')
                     ->required()
-                    ->label('Location'),
+                    ->label('Package Type')
+                    ->options([
+                        'adventure' => 'Adventure',
+                        'luxury' => 'Luxury',
+                        'family' => 'Family',
+                        'romantic' => 'Romantic',
+                    ])
+                    ->placeholder('Select a Package Type'),
+    
+                Select::make('rating')
+                    ->required()
+                    ->label('Rating')
+                    ->options([
+                        "1" => '1 Star',
+                        "2" => '2 Star',
+                        "3" => '3 Star',
+                        "4" => '4 Star',
+                        "5" => '5 Star',
+                    ])
+                    ->placeholder('Rating of your package'),
+    
+                FileUpload::make('banner_image')
+                    ->label('Banner Image')
+                    ->image()
+                    ->maxSize(1.5 * 1024)
+                    ->helperText('Allowed file types: JPG, PNG, GIF'),
+    
+                TextInput::make('country')
+                    ->required()
+                    ->label('Country'),
+    
+                TextInput::make('state')
+                    ->required()
+                    ->label('State'),
+    
+                TextInput::make('city')
+                    ->required()
+                    ->label('City'),
+    
                 TextInput::make('duration')
                     ->required()
-                    ->label('Duration'),
-                Repeater::make('traveloptions')
-                    ->label('Travel Options')
-                    ->schema([
-                        Select::make('type')
-                            ->label('Travel Type')
-                            ->options([
-                                'flight' => 'Flight',
-                                'without_flight' => 'Without Flight',
-                                'bus' => 'By Bus',
-                            ])
-                            ->required()
-                            ->reactive(),
-                        TextInput::make('price')
-                            ->label('Price')
-                            ->numeric()
-                            ->required(),
-                        TextInput::make('from')
-                            ->label('Flight From')
-                            ->required()
-                            ->visible(fn(Forms\Get $get) => $get('type') === 'flight'),
-                        TextInput::make('to')
-                            ->label('Flight To')
-                            ->required()
-                            ->visible(fn(Forms\Get $get) => $get('type') === 'flight'),
-                        TextInput::make('travel_to')
-                            ->label('Travel To (User Location)')
-                            ->required()
-                            ->visible(fn(Forms\Get $get) => $get('type') === 'without_flight'),
-                        TextInput::make('bus_from')
-                            ->label('Bus From')
-                            ->required()
-                            ->visible(fn(Forms\Get $get) => $get('type') === 'bus'),
-                        TextInput::make('bus_to')
-                            ->label('Bus To')
-                            ->required()
-                            ->visible(fn(Forms\Get $get) => $get('type') === 'bus'),
-                    ])
-                    ->columns(2)
-                    ->collapsed(),
-
-                RichEditor::make('highlights')
-                    ->label('Highlights')
-                    ->placeholder('Enter highlights separated by commas')
+                    ->label('Duration Only in days')
+                    ->numeric()
+                    ->type('number'),
+    
+                RichEditor::make('des')
+                    ->label('Description')
+                    ->placeholder('Enter description about Package')
                     ->helperText('Example: Private Pool Villa, Couple Spa Session'),
-
-                RichEditor::make('inclusions')
-                    ->label('Inclusions')
-                    ->placeholder('Enter inclusions separated by commas'),
-
-                RichEditor::make('exclusions')
-                    ->label('Exclusions')
-                    ->placeholder('Enter exclusions separated by commas'),
-
-                RichEditor::make('cancellationPolicy')
-                    ->label('Cancellation Policy')
-                    ->placeholder('Enter Cancellation Policy separated by commas'),
-
-                RichEditor::make('additionalInfo')
-                    ->label('Additional Info')
-                    ->placeholder('Enter Additional Info separated by commas'),
-
-                Card::make([
-                    TextInput::make('rating')
-                        ->label('Rating')
-                        ->numeric()
-                        ->step(0.1)
-                        ->placeholder('Enter rating out of 5'),
-
-                    Repeater::make('reviews')
-                        ->label('Reviews')
-                        ->schema([
-                            TextInput::make('user')->label('User Name'),
-                            TextInput::make('rating')->label('Rating')->numeric(),
-                            Textarea::make('comment')->label('Comment'),
-                            TextInput::make('date')->label('Date')->type('date'),
-                            FileUpload::make('image')
-                                ->label('Review Image')
-                                ->image()
-                                ->required(false)
-                                ->maxSize(1.5 * 1024)
-                                ->helperText('Allowed file types: JPG, PNG, GIF')
-                        ])
-                        ->columns(2)
-                        ->collapsed(),
-                ])
-                    ->label('Package Rating & Reviews'),
-
-
+    
+                TextInput::make('price')
+                    ->required()
+                    ->label('Price'),
+    
                 FileUpload::make('images')
-                    ->label('Package Image')
+                    ->label('Package Images')
                     ->image()
-                    ->required(false)
-                    ->maxSize(1.5 * 1024)
                     ->multiple()
+                    ->maxSize(1.5 * 1024)
                     ->helperText('Allowed file types: JPG, PNG, GIF'),
-
-                Repeater::make('itinerary')
-                    ->label('Itinerary')
+    
+                Repeater::make('activite')
                     ->schema([
-                        TextInput::make('day')->label('Day')->numeric(),
-                        DatePicker::make('date')
-                            ->label('Date')
-                            ->required()
-                            ->displayFormat('Y-m-d')
-                            ->firstDayOfWeek(1),
-                        Card::make([
-
-                            RichEditor::make('description')->label('Description'),
-                            RichEditor::make('activities')
-                                ->label('Activities')
-                                ->schema([
-                                    TextInput::make('activity')->label('Activity'),
-                                ])
-                                ->columns(1),
-                            FileUpload::make('image')
-                                ->label('Review Image')
-                                ->image()
-                                ->required(false)
-                                ->maxSize(1.5 * 1024)
-                                ->multiple()
-                                ->helperText('Allowed file types: JPG, PNG, GIF')
-                        ]),
+                        Select::make('day')
+                            ->options([
+                                '1' => 'Day 1',
+                                '2' => 'Day 2',
+                                '3' => 'Day 3',
+                                '4' => 'Day 4',
+                                '5' => 'Day 5',
+                            ])
+                            ->required(),
+                        TextInput::make('activitie')
+                            ->required(),
                     ])
-                    ->columns(2)
-                    ->collapsed(),
-
-
+                    ->columns(2),
+    
+                Repeater::make('terms')
+                    ->schema([
+                        TextInput::make('terms')->required(),
+                        TextInput::make('condition')->required(),
+                    ])
+                    ->columns(2),          
+                            
+    
+                         
             ]);
     }
 

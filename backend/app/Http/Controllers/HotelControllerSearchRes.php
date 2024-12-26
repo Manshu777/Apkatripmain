@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+
 
 namespace App\Http\Controllers;
 
@@ -22,12 +22,7 @@ class HotelControllerSearchRes extends Controller
             'guestNationality' => 'required|string',
             'page' => 'required|integer',
         ]);
-
-
-
-
-      
-            $client = new \GuzzleHttp\Client();
+         $client = new Client();
 
             // 1st API request: Get hotel codes by city
             $response1 = $client->post('http://api.tbotechnology.in/TBOHolidays_HotelAPI/TBOHotelCodeList', [

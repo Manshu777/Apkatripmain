@@ -56,7 +56,9 @@ const comp = ({ slug }) => {
   const date = new Date(selectedMinDate);
 const currencylist=useSelector(state=>state.currencySlice);
 const defaultcurrency= JSON.parse(localStorage.getItem("usercurrency")) || {symble:"₹",code:"INR",country:"India",}
-const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
+const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`] 
+//
+console.log(cuntryprice,"dscklsdvsvxc")
 
   const offset = 6 * 60 * 55 * 1000;
 
@@ -128,7 +130,7 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
     prfdate,
     localFormattedDate,
   ]);
-
+  
   const [state, setstate] = useState();
   const [state2, setstate2] = useState();
 
@@ -588,13 +590,13 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
                                             <span className="text-sm md:text-lg font-bold">
                                             {defaultcurrency.symble}
                                             {(() => {
-    // Get the OfferedFare and multiply by cuntryprice
+    
     const offeredFare = flight.Fare?.OfferedFare || 0;
-    const price = offeredFare * cuntryprice; // Calculate the price
-    const priceString = price.toFixed(2); // Format the price to 2 decimal places
-    const [integerPart, decimalPart] = priceString.split("."); // Split into integer and decimal parts
-    // Ensure the decimal part has exactly 2 digits and format it with a comma
+    const price = Number(offeredFare) * Number(cuntryprice); 
+    const priceString = price.toFixed(2); 
+    const [integerPart, decimalPart] = priceString.split(".");
     return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
+    // return offeredFare;
   })()}
                                             </span>
                                             <p className="text-sm text-gray-700 font-light leading-tight">
@@ -624,13 +626,13 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
                                             <span className="text-sm md:text-lg font-bold">
                                             {defaultcurrency.symble}
                                             {(() => {
-    // Get the OfferedFare and multiply by cuntryprice
+   
     const offeredFare = flight.Fare?.OfferedFare || 0;
-    const price = offeredFare * cuntryprice; // Calculate the price
-    const priceString = price.toFixed(2); // Format the price to 2 decimal places
-    const [integerPart, decimalPart] = priceString.split("."); // Split into integer and decimal parts
-    // Ensure the decimal part has exactly 2 digits and format it with a comma
+    const price = Number(offeredFare) * Number(cuntryprice); 
+    const priceString = price.toFixed(2); 
+    const [integerPart, decimalPart] = priceString.split("."); 
     return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
+    // return offeredFare;
   })()}                                            </span>
                                             <p className="text-sm text-gray-700 font-light leading-tight">
                                               Total Price
@@ -1204,13 +1206,14 @@ const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`]
                                       <span className="text-sm md:text-lg font-bold">
                                         {defaultcurrency.symble} 
                                         {(() => {
-    // Get the OfferedFare and multiply by cuntryprice
+ 
     const offeredFare = flight.Fare?.OfferedFare || 0;
-    const price = offeredFare * cuntryprice; // Calculate the price
-    const priceString = price.toFixed(2); // Format the price to 2 decimal places
-    const [integerPart, decimalPart] = priceString.split("."); // Split into integer and decimal parts
-    // Ensure the decimal part has exactly 2 digits and format it with a comma
+    const price = Number(offeredFare) * Number(cuntryprice); 
+    const priceString = price.toFixed(2); 
+    const [integerPart, decimalPart] = priceString.split("."); 
     return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
+
+    // return offeredFare;
   })()}                                      </span>
                                       <p className="text-sm text-gray-700 font-light leading-tight">
                                         Total Price

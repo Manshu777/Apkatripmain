@@ -22,7 +22,7 @@ import ssrFlightSlice from "./slices/ssrRuleFlight"
 import getRegHotelsSlice from "./slices/getReqHotels"
 import insuranceSlice from "./slices/insuranceSearchSlice"
 import calendarSlice from './slices/calenderData'
-
+import currencySlice from "./slices/currencySlice"
 export const store = configureStore({
   reducer: { searchFlightslice, Allairport, topPortsSlice, blogslice, ipslice, searchreturn,advanceSearchFlight,
     farequoteSlice,ssrFlightSlice,
@@ -30,6 +30,7 @@ export const store = configureStore({
     citysearch,hotelsSlice,preBookSlice,
     sightseeingslice,sightseeingGetslice,busCityslice,gethotelslice,busslice,busSeatSlice,fareRuleSlice,
     insuranceSlice,
+    currencySlice,
     calendar:calendarSlice
   },
 });

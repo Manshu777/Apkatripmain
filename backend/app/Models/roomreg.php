@@ -24,7 +24,7 @@ class roomreg extends Model
         'room_des',
         'additional_serv',
         'image',
-        'hotel_reg_new_id'
+        'hotel_reg_new_id',
     ];
 
     protected $casts = [
