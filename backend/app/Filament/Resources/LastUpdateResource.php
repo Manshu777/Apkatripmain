@@ -28,9 +28,7 @@ class LastUpdateResource extends Resource
     {
         return $form
             ->schema([
-                //
- 
-                TextInput::make('title'),
+               TextInput::make('title'),
                 FileUpload::make('image'),
                 RichEditor::make('des') ]);
                 
@@ -40,13 +38,12 @@ class LastUpdateResource extends Resource
     {
         return $table
             ->columns([
-                //
                 ImageColumn::make("image"),
                 TextColumn::make('title'),
                 TextColumn::make('des')
             ])
             ->filters([
-                //
+                
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
