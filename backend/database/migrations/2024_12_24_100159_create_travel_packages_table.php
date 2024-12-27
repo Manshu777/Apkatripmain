@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer("duration");
             $table->text("des");
             $table->string("price");
-            $table->json("images");
+            $table->json("images"); 
             $table->json( "activite");
             $table->json("terms");
             $table->string("slug")->unique();

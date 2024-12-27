@@ -26,4 +26,11 @@ class HolidayspackageController extends Controller
 
         return $package;
     }
+    public function GetHolidayPackage(string $slug){
+        $package = TravelPackage::where("slug",$slug)->first();
+        
+        return $package ;
+
+
+    }
 }

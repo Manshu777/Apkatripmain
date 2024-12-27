@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookflights', function (Blueprint $table) {
-            $table->id();
+      
+if (!Schema::hasTable('bookflights')) {
+            Schema::create('bookflights', function (Blueprint $table) {
+                $table->id();
             $table->unsignedBigInteger('user_id')->nullable(); // Allow null for SET NULL to work
             $table->string('user_name'); // Storing the user's name
             $table->string('user_number'); // Storing the user's number
@@ -32,9 +34,18 @@ return new class extends Migration
             $table->foreign('user_id')
                   ->references('id')
                   ->on('apkatripusers')
-                  ->nullOnDelete(); // Set user_id to null if the user is deleted
-        });
+                  ->nullOnDelete();
+            });
+
+
+
+
+
+
+
+
     }
+}
 
     /**
      * Reverse the migrations.

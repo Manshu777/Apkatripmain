@@ -26,7 +26,7 @@ class TravelPackage extends Model
 
 
 protected $casts=[
-    'image' => 'array',
+    'images' => 'array',
     'activite' => 'array',
     'terms' => 'array',
 ];

@@ -28,10 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
 
             ->login()
-
+ 
             ->colors([
                 'danger' => Color::Red,        
-                'gray' => Color::Slate,        // A sophisticated white-gray with a modern feel
+                'gray' => Color::Slate,        
                 'info' => Color::Sky,          // A lighter, softer blue for informational purposes
                 'primary' => Color::Indigo,    // A rich blue-indigo for the primary theme
                 'success' => Color::Emerald,   // A vibrant green symbolizing success

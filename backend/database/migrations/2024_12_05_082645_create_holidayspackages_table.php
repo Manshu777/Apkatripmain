@@ -20,7 +20,7 @@ return new class extends Migration
             $table->json('highlights');
             $table->json('inclusions');
             $table->json('exclusions');
-            $table->float('rating', 3, 2);
+            $table->float('rating',3);
             $table->json('reviews');
             $table->json('images');
             $table->json('cancellationPolicy');

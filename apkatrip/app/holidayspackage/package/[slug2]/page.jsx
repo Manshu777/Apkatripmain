@@ -1,9 +1,9 @@
 import React from 'react'
-
+import PackageSlugCompo from "./PackageSlugCompo"
 const page = ({params:{slug2}}) => {
   return (
     <div>
-      {slug2}
+      <PackageSlugCompo slug={slug2} />
     </div>
   )
 }

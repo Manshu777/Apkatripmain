@@ -160,4 +160,6 @@ Route::get("/v1/Popular-hotel",[Popular_destController::class,"Popular_hotel"]);
 use App\Http\Controllers\HolidayspackageController;
 
 Route::get("/v1/search-holidays-package/{name}",[HolidayspackageController::class,"SearchHolidayspackage"]);
+Route::get("/v1/holidays-package/{name}",[HolidayspackageController::class,"GetHolidayPackage"]);
+
 

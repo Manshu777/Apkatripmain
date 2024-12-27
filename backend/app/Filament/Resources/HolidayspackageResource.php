@@ -16,9 +16,12 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+
+
 
 class HolidayspackageResource extends Resource
 {
@@ -121,10 +124,9 @@ class HolidayspackageResource extends Resource
     
                 Repeater::make('terms')
                     ->schema([
-                        TextInput::make('terms')->required(),
-                        TextInput::make('condition')->required(),
-                    ])
-                    ->columns(2),          
+                        TextInput::make('terms')->label("Terms & conditions")->required(),
+                       
+                    ]),          
                             
     
                          
@@ -135,12 +137,25 @@ class HolidayspackageResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label('Package Name')->searchable(),
-                TextColumn::make('location')->label('Location'),
+                TextColumn::make('package_name')->label('Package Name')->searchable(),
+                TextColumn::make('package_Type')->label('Package Name')->searchable(),
+                ImageColumn::make('banner_image'),
+                TextColumn::make('country'),
+                TextColumn::make('state'),
+                TextColumn::make('city'),
+                TextColumn::make('des')->label('Description'),
+                TextColumn::make('price'),
+                TextColumn::make('activite'),
+                TextColumn::make('terms'),
                 TextColumn::make('duration')->label('Duration'),
-                TextColumn::make('price.withFlight')->label('Price with Flight')->sortable(),
-                TextColumn::make('price.withoutFlight')->label('Price without Flight')->sortable(),
                 TextColumn::make('rating')->label('Rating')->sortable(),
+
+                
+
+
+
+                TextColumn::make(name: 'location')->label('Location'),
+                
             ])
             ->filters([])
             ->actions([
