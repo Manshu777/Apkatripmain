@@ -17,11 +17,11 @@ use Filament\Forms\Components\Select;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+// use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
-
-
+use Filament\Infolists\Components\Section;
+use Filament\Forms\Components\Builder;
 
 class HolidayspackageResource extends Resource
 {
@@ -39,98 +39,105 @@ class HolidayspackageResource extends Resource
         return $form
             ->schema(
                 [
-                    TextInput::make('package_name')
-                    ->required()
-                    ->label('Package Name'),
-    
-                Select::make('package_Type')
-                    ->required()
-                    ->label('Package Type')
-                    ->options([
-                        'adventure' => 'Adventure',
-                        'luxury' => 'Luxury',
-                        'family' => 'Family',
-                        'romantic' => 'Romantic',
-                    ])
-                    ->placeholder('Select a Package Type'),
-    
-                Select::make('rating')
-                    ->required()
-                    ->label('Rating')
-                    ->options([
-                        "1" => '1 Star',
-                        "2" => '2 Star',
-                        "3" => '3 Star',
-                        "4" => '4 Star',
-                        "5" => '5 Star',
-                    ])
-                    ->placeholder('Rating of your package'),
-    
-                FileUpload::make('banner_image')
-                    ->label('Banner Image')
-                    ->image()
-                    ->maxSize(1.5 * 1024)
-                    ->helperText('Allowed file types: JPG, PNG, GIF'),
-    
-                TextInput::make('country')
-                    ->required()
-                    ->label('Country'),
-    
-                TextInput::make('state')
-                    ->required()
-                    ->label('State'),
-    
-                TextInput::make('city')
-                    ->required()
-                    ->label('City'),
-    
-                TextInput::make('duration')
-                    ->required()
-                    ->label('Duration Only in days')
-                    ->numeric()
-                    ->type('number'),
-    
-                RichEditor::make('des')
-                    ->label('Description')
-                    ->placeholder('Enter description about Package')
-                    ->helperText('Example: Private Pool Villa, Couple Spa Session'),
-    
-                TextInput::make('price')
-                    ->required()
-                    ->label('Price'),
-    
-                FileUpload::make('images')
-                    ->label('Package Images')
-                    ->image()
-                    ->multiple()
-                    ->maxSize(1.5 * 1024)
-                    ->helperText('Allowed file types: JPG, PNG, GIF'),
-    
-                Repeater::make('activite')
-                    ->schema([
-                        Select::make('day')
-                            ->options([
-                                '1' => 'Day 1',
-                                '2' => 'Day 2',
-                                '3' => 'Day 3',
-                                '4' => 'Day 4',
-                                '5' => 'Day 5',
-                            ])
-                            ->required(),
-                        TextInput::make('activitie')
-                            ->required(),
-                    ])
-                    ->columns(2),
-    
-                Repeater::make('terms')
-                    ->schema([
-                        TextInput::make('terms')->label("Terms & conditions")->required(),
-                       
-                    ]),          
-                            
-    
-                         
-            ]);
+
+                    Forms\Components\Card::make()
+                        ->schema([
+
+                            TextInput::make('package_name')
+                                ->required()
+                                ->label('Package Name'),
+
+                            Select::make('package_Type')
+                                ->required()
+                                ->label('Package Type')
+                                ->options([
+                                    'adventure' => 'Adventure',
+                                    'luxury' => 'Luxury',
+                                    'family' => 'Family',
+                                    'romantic' => 'Romantic',
+                                ])
+                                ->placeholder('Select a Package Type'),
+                            ]),
+
+                            Select::make('rating')
+                                ->required()
+                                ->label('Rating')
+                                ->options([
+                                    "1" => '1 Star',
+                                    "2" => '2 Star',
+                                    "3" => '3 Star',
+                                    "4" => '4 Star',
+                                    "5" => '5 Star',
+                                ])
+                                ->placeholder('Rating of your package'),
+                
+
+                    FileUpload::make('banner_image')
+                        ->label('Banner Image')
+                        ->image()
+                        ->maxSize(1.5 * 1024)
+                        ->helperText('Allowed file types: JPG, PNG, GIF'),
+
+                    TextInput::make('country')
+                        ->required()
+                        ->label('Country'),
+
+                    TextInput::make('state')
+                        ->required()
+                        ->label('State'),
+
+                    TextInput::make('city')
+                        ->required()
+                        ->label('City'),
+
+                    TextInput::make('duration')
+                        ->required()
+                        ->label('Duration Only in days')
+                        ->numeric()
+                        ->type('number'),
+
+                    RichEditor::make('des')
+                        ->label('Description')
+                        ->placeholder('Enter description about Package')
+                        ->helperText('Example: Private Pool Villa, Couple Spa Session'),
+
+                    TextInput::make('price')
+                        ->required()
+                        ->label('Price'),
+
+                    FileUpload::make('images')
+                        ->label('Package Images')
+                        ->image()
+                        ->multiple()
+                        ->maxSize(1.5 * 1024)
+                        ->helperText('Allowed file types: JPG, PNG, GIF'),
+
+                    Repeater::make('activite')
+                        ->schema([
+                            Select::make('day')
+                                ->options([
+                                    '1' => 'Day 1',
+                                    '2' => 'Day 2',
+                                    '3' => 'Day 3',
+                                    '4' => 'Day 4',
+                                    '5' => 'Day 5',
+                                ])
+                                ->required(),
+                            TextInput::make('activitie')
+                                ->required(),
+                        ])
+                        ->columns(2),
+
+                    Repeater::make('terms')
+                        ->schema([
+                            TextInput::make('terms')->label("Terms & conditions")->required(),
+
+                        ]),
+
+
+
+                ]
+            );
     }
 
     public static function table(Tables\Table $table): Tables\Table
@@ -150,12 +157,12 @@ class HolidayspackageResource extends Resource
                 TextColumn::make('duration')->label('Duration'),
                 TextColumn::make('rating')->label('Rating')->sortable(),
 
-                
+
 
 
 
                 TextColumn::make(name: 'location')->label('Location'),
-                
+
             ])
             ->filters([])
             ->actions([
