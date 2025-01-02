@@ -777,7 +777,7 @@ background-image: url(../public/Images/blog.webp);
   background-repeat: no-repeat;
 }
 .bg-image{
-  background: url(../public/Images/download\ \(1\).webp) no-repeat right 24px top 4px,radial-gradient(ellipse 30% 26% at 80% 0,rgba(255,233,236,.6),transparent),radial-gradient(ellipse 30% 26% at bottom left,rgba(255,233,236,.6),transparent),#fcf9f6;
+  background-color: #def4ff3b;
   border-radius: 8px;
   overflow: hidden;
   padding: 24px;

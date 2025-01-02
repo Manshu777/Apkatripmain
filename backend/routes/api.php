@@ -44,6 +44,10 @@ Route::post('v1/genrate-ticket', [FlightController::class, 'generateTicket']);
 Route::post('v1/get-calendar-fare', [FlightController::class, 'getCalendarFare']);
 // generateTicket
 
+use App\Http\Controllers\MultiCityFareController;
+
+Route::post('v1/multi-city-fare', [MultiCityFareController::class, 'getMultiCityFare']);
+
 
 
 

@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation'
 import { development } from './Component/common'
 
 
-
+import FeaturedProperties from './Component/AllComponent/FeaturedProperties'
 const page = () => {
   if(development=="production"){
   redirect("/maintenance")
@@ -22,10 +22,23 @@ const page = () => {
      
       <Header />
       <CustomSlider/>
+
+
+
+
       <TopFlight />
-      <Book />
-      <TipsTricks />
+
   
+
+
+      <Book />
+
+
+      <TipsTricks />
+
+     
+      
+     
       
     
     </>
