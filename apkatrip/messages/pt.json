@@ -4,17 +4,23 @@
       "description": "Esta é uma página de exemplo para o seu site multilíngue."
     },
     "Navbar": {
-      "flight": "Voo",
-      "about": "Sobre",
-      "contact": "Contato",
-      "language": "Idioma",
-      "hotels": "Hotéis",
-      "flightHotel": "Voo + Hotel",
-      "trains": "Trens",
-      "bus": "Ônibus",
-      "holidays": "Férias",
-      "Insurance": "Seguro",
-      "activities": "Atividades"
+      
+        "flight": "Voo",
+        "about": "Sobre",
+        "contact": "Contato",
+        "language": "Idioma",
+        "hotels": "Hotéis",
+        "flightHotel": "Voo + Hotel",
+        "trains": "Trens",
+        "bus": "Ônibus",
+        "holidays": "Férias",
+        "cab": "Táxi",
+        "cruise": "Cruzeiro",
+        "charter": "Charter",
+        "insurance": "Seguro",
+        "activities": "Atividades"
+      
+      
     },
     "Navbar2": {
       "From": "De",

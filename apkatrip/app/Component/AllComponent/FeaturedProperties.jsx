@@ -120,7 +120,7 @@ const FeaturedProperties = () => {
             height={24}
           />
           <div className="recommend-module-usp-text-con">
-            <span className="recommend-module-usp-text">
+            <span className=" recommend-module-usp-text">
               Hotel Booking Guarantee
             </span>
           </div>

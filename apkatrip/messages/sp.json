@@ -4,17 +4,21 @@
   "description": "Esta es una página de ejemplo para su sitio web multilingüe."
 },
 "Navbar": {
-  "flight": "Vuelo",
-  "about": "Sobre nosotros",
-  "contact": "Contacto",
-  "language": "Idioma",
-  "hotels": "Hoteles",
-  "flightHotel": "Vuelo + Hotel",
-  "trains": "Trenes",
-  "bus": "Autobús",
-  "holidays": "Vacaciones",
-  "cabs": "Taxis",
-  "activities": "Actividades"
+  
+    "flight": "Vuelo",
+    "about": "Sobre nosotros",
+    "contact": "Contacto",
+    "language": "Idioma",
+    "hotels": "Hoteles",
+    "flightHotel": "Vuelo + Hotel",
+    "trains": "Trenes",
+    "cab": "Taxi",
+    "bus": "Autobús",
+    "holidays": "Vacaciones",
+    "insurance": "Seguro",
+    "activities": "Actividades"
+  
+  
 },
 "Navbar2": {
   "From": "Desde",

@@ -4,17 +4,23 @@
       "description": "이 페이지는 다국어 웹사이트를 위한 예시 페이지입니다."
     },
     "Navbar": {
-      "flight": "항공권",
-      "about": "정보",
-      "contact": "연락처",
-      "language": "언어",
-      "hotels": "호텔",
-      "flightHotel": "항공 + 호텔",
-      "trains": "기차",
-      "bus": "버스",
-      "holidays": "휴일",
-      "Insurance": "보험",
-      "activities": "활동"
+      
+        "flight": "항공권",
+        "about": "정보",
+        "contact": "연락처",
+        "language": "언어",
+        "hotels": "호텔",
+        "flightHotel": "항공 + 호텔",
+        "trains": "기차",
+        "bus": "버스",
+        "holidays": "휴가",
+        "cab": "택시",
+        "cruise": "크루즈",
+        "charter": "전세",
+        "insurance": "보험",
+        "activities": "활동"
+      
+      
     },
     "Navbar2": {
       "From": "출발지",

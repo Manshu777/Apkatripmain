@@ -12,9 +12,12 @@
       "flightHotel": "Lot + Hotel",
       "trains": "Pociągi",
       "bus": "Autobusy",
-      "holidays": "Wakacje",
-      "Insurance": "Ubezpieczenie",
-      "activities": "Atrakcje"
+      "cab": "Taxi",
+      "holidays": "ferie",
+      "cruise": "Rejs",
+      "charter": "Czarter",
+      "insurance": "Ubezpieczenie",
+      "activities": "Aktywności"
     },
     "Navbar2": {
       "From": "Z",

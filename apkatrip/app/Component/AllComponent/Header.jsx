@@ -787,31 +787,28 @@ const Header = () => {
   }
 
 
+
+  console.log('wfvrwfrwfwf',CaldataOrg?.SearchResults)
   
 
   const tileContent2 = ({ date, view }) => {
     if (view === "month") {
-      const dateKey = date.toISOString().split("T")[0]; 
-      const getFAreData = CaldataOrg?.SearchResults; 
-      console.log('dwfrefreft4f',CaldataOrg)
-
+      const dateKey = date.toISOString().split("T")[0]; // Convert to UTC
+      const localDateKey = date.toLocaleDateString("en-CA"); // Use local format YYYY-MM-DD
+      const getFAreData = CaldataOrg?.SearchResults;
   
       if (Array.isArray(getFAreData)) {
-
         const fareDataForDate = getFAreData.find(
-          (item) => item.DepartureDate.split("T")[0] === dateKey
+          (item) => item.DepartureDate.split("T")[0] === localDateKey
         );
-
-
   
         if (fareDataForDate) {
-          const { Fare,BaseFare, IsLowestFareOfMonth, AirlineCode } = fareDataForDate;
+          const { Fare, BaseFare, IsLowestFareOfMonth, AirlineCode } = fareDataForDate;
   
           // Render the content for the date
           return (
-            <div className="price">
+            <div className="text-sm">
               <div>{formatPrice(Fare)}</div>
-            
             </div>
           );
         }
@@ -819,7 +816,6 @@ const Header = () => {
     }
     return null;
   };
-  
 
   // tileContent2()
 
@@ -828,7 +824,7 @@ const Header = () => {
       <div className="header relative  md:px-5  lg:px-12 xl:px-24">
         <div className=" bg-[#002043] h-[15rem] absolute inset-0  -z-10" />
         <div className="w-full flex md:justify-end	">
-        <div className="w-full md:w-fit">
+        <div className="w-full md:w-fit hidden lg:block">
             <ul className="text-black lastNavigation bg-gray-100   px-2 w-full  md:mx-end   md:px-5   text-sm py-2  gap-0 md:gap-3 grid grid-cols-3  md:flex  lg:w-full items-center justify-between shadow-md"
              onMouseLeave={() => setBottomDropdown(null)}>
               {topAndBottomDropDown.HomeBookTravelBuinessBottomDropDown.map(
@@ -878,7 +874,7 @@ const Header = () => {
           </div>
 
           <div className=" px-4 border-b-2 shadow-sm  space-y-2 py-3 ">
-            <div className="tabs 1stTab text-sm text-nowrap  md:text-sm  flex  md:gap-2 font-bold text-black  ">
+            <div className="overflow-scroll tabs 1stTab text-sm text-nowrap  md:text-sm  flex  md:gap-2 font-bold text-black  ">
               <button
                 className={`md:px-4 py-1  font-bold rounded-3xl ${
                   JourneyType === 1 ? "bg-white text-[#000]" : ""
@@ -903,7 +899,7 @@ const Header = () => {
               >
                 {t("multicity")}
               </button>
-              <div className="relative" ref={dropCoachandCheap}>
+              {/* <div className="relative" ref={dropCoachandCheap}>
                 <button
                   onClick={() => handleDropdownToggle("coach")}
                   className="flex items-center text-[#2F82EC] justify-center gap-1 md:justify-between md:gap-3 w-full px-4 py-2 "
@@ -931,7 +927,7 @@ const Header = () => {
                     ))}
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
 
             {/* <div className="tab-content bg-red-400">

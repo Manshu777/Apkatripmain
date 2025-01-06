@@ -11,10 +11,13 @@
       "hotels": "ਹੋਟਲ",
       "flightHotel": "ਉਡਾਨ + ਹੋਟਲ",
       "trains": "ਰੇਲਗੱਡੀਆਂ",
-      "bus": "ਬੱਸ",
-      "holidays": "ਛੁਟੀਆਂ",
-      "cabs": "ਕੈਬ",
-      "activities": "ਗਤੀਵਿਧੀਆਂ"
+      "bus": "ਬਸ",
+      "holidays": "ਛੁੱਟੀਆਂ",
+      "cab": "ਟੈਕਸੀ",
+      "cruise": "ਕ੍ਰੂਜ਼",
+      "charter": "ਚਾਰਟਰ",
+      "insurance": "ਬੀਮਾ",
+      "activities": "ਕਿਰਿਆਵਾਂ"
     
         },
       "Navbar2":{

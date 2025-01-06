@@ -13,7 +13,10 @@
   "trains": "Поезда",
   "bus": "Автобус",
   "holidays": "Отпуска",
-  "cabs": "Такси",
+  "cab": "Такси",
+  "cruise": "Круиз",
+  "charter": "Чартер",
+  "insurance": "Страхование",
   "activities": "Активности"
 },
 "Navbar2": {

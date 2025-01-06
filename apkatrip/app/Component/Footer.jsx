@@ -172,14 +172,14 @@ const Footer = () => {
             </p>
 
             <div className="tabSection">
-              <div className="flex items-center  gap-3 ">
+              <div className="flex overflow-scroll items-center  gap-3 ">
                 <button
                   onClick={() => setActiveTab(1)}
                   className={`${
                     activeTab == 1
                       ? "bg-slate-700 text-white"
                       : "bg-slate-100 hover:text-blue-500"
-                  } py-2 px-4   text-sm font-medium text-gray-600 border-b-2 border-transparent  focus:outline-none rounded-sm`}
+                  } py-2 px-4   text-nowrap text-sm font-medium text-gray-600 border-b-2 border-transparent  focus:outline-none rounded-sm`}
                 >
                   Best Cheap Flights
                 </button>
@@ -189,21 +189,21 @@ const Footer = () => {
                     activeTab == 2
                       ? "bg-slate-700 text-white"
                       : "bg-slate-100 hover:text-blue-500"
-                  }  py-2 px-4   text-sm font-medium  text-gray-600 border-b-2 border-transparent  focus:outline-none rounded-sm`}
+                  }  py-2 px-4   text-sm font-medium text-nowrap  text-gray-600 border-b-2 border-transparent  focus:outline-none rounded-sm`}
                 >
                   Favourite Airline & Airports
                 </button>
               </div>
               {activeTab == 1 ? (
-                <ul className=" w-full overflow-x-auto tab-content px-3 text-xs grid grid-cols-4 gap-4 rounded-md py-8">
+                <ul className=" w-full overflow-x-auto tab-content px-3 text-xs grid grid-cols-2 lg:grid-cols-4   gap-4 rounded-md py-8">
                   {tabsContent.bestCheapFlight.map((elm, index) => (
-                    <li key={index} className="ml-0 lg:ml-20">
+                    <li key={index} className="ml-0   lg:text-md lg:ml-20">
                       <h5>{elm.name}</h5>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <ul className="tab-content text-xs w-full overflow-x-auto   grid grid-cols-4 gap-4  px-5 py-8 rounded-md">
+                <ul className="tab-content text-xs w-full overflow-x-auto   grid grid-cols-2 lg:grid-cols-4 gap-4  px-5 py-8 rounded-md">
                   {tabsContent.FavouriteAirlineAndAirports.map(
                     (item, index) => (
                       <li key={index} className="ml-0 lg:ml-20">

@@ -13,7 +13,10 @@
       "trains": "รถไฟ",
       "bus": "รถบัส",
       "holidays": "วันหยุด",
-      "Insurance": "ประกันภัย",
+      "cab": "แท็กซี่",
+      "cruise": "เรือสำราญ",
+      "charter": "ชาร์เตอร์",
+      "insurance": "ประกันภัย",
       "activities": "กิจกรรม"
     },
     "Navbar2": {

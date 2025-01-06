@@ -5,17 +5,19 @@
     },
 
     "Navbar": {
-    "flight": "उड़ान",
-    "about": "के बारे में",
-    "contact": "संपर्क",
-    "language": "भाषा",
-    "hotels": "होटल",
-    "flightHotel": "उड़ान + होटल",
-    "trains": "ट्रेनों",
-    "bus": "बस",
-    "holidays": "छुट्टियां",
-    "cabs": "कैब",
-    "activities": "गतिविधियाँ"
+      "flight": "उड़ान",
+      "about": "के बारे में",
+      "contact": "संपर्क",
+      "language": "भाषा",
+      "hotels": "होटल",
+      "flightHotel": "उड़ान + होटल",
+      "trains": "ट्रेनें",
+      "holidays": "छुट्टियां",
+      "cab": "कैब",
+      "cruise": "क्रूज",
+      "charter": "चार्टर",
+      "insurance": "बीमा",
+      "activities": "गतिविधियां"
   
       },
     "Navbar2":{

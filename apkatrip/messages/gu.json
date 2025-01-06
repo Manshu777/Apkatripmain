@@ -12,9 +12,12 @@
       "flightHotel": "ઉડાન + હોટલ",
       "trains": "ટ્રેનો",
       "bus": "બસ",
-      "holidays": "છુટ્ટીઓ",
-      "cabs": "કેબ",
-      "activities": "ક્રિયાકલાપ"
+      "holidays": "રજાઓ",
+      "cab": "ટેક્સી",
+      "cruise": "ક્રૂઝ",
+      "charter": "ચાર્ટર",
+      "insurance": "વીમો",
+      "activities": "પ્રવૃત્તિઓ"
     
         },
       "Navbar2":{

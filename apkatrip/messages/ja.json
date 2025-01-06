@@ -13,7 +13,10 @@
       "trains": "列車",
       "bus": "バス",
       "holidays": "休日",
-      "Insurance": "保険",
+      "cab": "タクシー",
+      "cruise": "クルーズ",
+      "charter": "チャーター",
+      "insurance": "保険",
       "activities": "アクティビティ"
     },
     "Navbar2": {

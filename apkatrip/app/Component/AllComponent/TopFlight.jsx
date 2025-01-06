@@ -298,20 +298,20 @@ const TopFlight = () => {
       <InfoSection />
 
 
-      <div className='px-10 my-8'>
+      <div className='px-2 lg:px-10 my-8'>
       <FeaturedProperties />
 
       </div>
 
       <div className="w-full mx-auto px-6 md:md:px-10 lg:px-52  pt:0 lg:pt-12 z-[-1]">
-        <div className="relative text-lg md:text-xl lg:text-4xl tracking-tighter	 gfont1  font-bold text-gray-900 flex justify-center items-center gap-2 mb-14">
+        <div className="relative text-xl md:text-xl lg:text-4xl tracking-tighter	 gfont1  font-bold text-gray-900 flex justify-center items-center gap-2 mb-4 lg:mb-14">
           Tourist 💕<span className="text-[#521010]"> Love</span>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-5 md:gap-y-8 ">
+        <div className="grid grid-cols-2 lg:grid-cols-3  xl:grid-cols-4 gap-5 md:gap-y-8 ">
           {viewAll &&
             attractions.slice(0, 7).map((attraction, index) => (
-              <div className="col-span-1 border-b-4 border-b-[#009dff] duration-200 text-xl shadow-md">
+              <div className="  border-b-4 border-b-[#009dff] duration-200 text-xl shadow-md">
                 <Link href={attraction.link}>
                   <div className="bg-white shadow-md rounded-lg p-4">
                     <div className="flex items-center">

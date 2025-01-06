@@ -21,18 +21,11 @@ import { useDispatch } from "react-redux";
 import { getCurrencyDef } from "./Store/slices/currencySlice";
 
 const Topbar = () => {
-
-
-  
-
-
-
-
   const router = useRouter();
-const dispatch =useDispatch()
+  const dispatch = useDispatch();
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-const [userlogin,setUserLogine]=useState(null);
+  const [userlogin, setUserLogine] = useState(null);
   const [selectedLang, setSelectedLang] = useState("en");
   const [topDropdown, setTopDropdown] = useState(null);
 
@@ -41,10 +34,8 @@ const [userlogin,setUserLogine]=useState(null);
     const localeFromCookie = Cookies.get("locale");
     if (localeFromCookie) setSelectedLang(localeFromCookie);
 
-    const allreadyuser= JSON.parse(localStorage.getItem("apkatripUser"));
-    setUserLogine(allreadyuser)
-
-
+    const allreadyuser = JSON.parse(localStorage.getItem("apkatripUser"));
+    setUserLogine(allreadyuser);
   }, []);
 
   const handleLanguageChange = (code) => {
@@ -89,8 +80,14 @@ const [userlogin,setUserLogine]=useState(null);
     }
   };
   const [activeTab, setActiveTab] = useState("signup");
-const [currencyappled,setcurrencyappled]=useState(false)
-const [defaultcurrency,setdefaultcurrency]=useState( JSON.parse(localStorage.getItem("usercurrency")) ||{symble:"₹",code:"INR",country:"India",})
+  const [currencyappled, setcurrencyappled] = useState(false);
+  const [defaultcurrency, setdefaultcurrency] = useState(
+    JSON.parse(localStorage.getItem("usercurrency")) || {
+      symble: "₹",
+      code: "INR",
+      country: "India",
+    }
+  );
   const [countryOpner, setCounrtyOpner] = useState(false);
   const countryLanguages = [
     { name: "English (US)", image: "/images/flags/us.webp", langCode: "en" },
@@ -203,16 +200,18 @@ const [defaultcurrency,setdefaultcurrency]=useState( JSON.parse(localStorage.get
     },
   ];
 
-  const currency=[
+  const currency = [
     {
       country: "India",
       symble: "₹",
       code: "INR",
+      image: "/images/flags/india.png",
     },
     {
       country: "United States",
       symble: "$",
       code: "USD",
+      image: "/images/flags/us.webp",
     },
     {
       country: "European Union",
@@ -281,23 +280,21 @@ const [defaultcurrency,setdefaultcurrency]=useState( JSON.parse(localStorage.get
     },
   ];
 
-useEffect(()=>{
-  dispatch(getCurrencyDef());
-},[ ])
+  useEffect(() => {
+    dispatch(getCurrencyDef());
+  }, []);
 
-
-  const handelCurrencySEt=(info)=>{
+  const handelCurrencySEt = (info) => {
     localStorage.setItem("usercurrency", JSON.stringify(info));
- 
-  
-setdefaultcurrency(info)
-setcurrencyappled(false)
 
-
-
-  }
-
-
+    setdefaultcurrency(info);
+    setcurrencyappled(false);
+  };
+  const getLangAbbreviation = (name) => {
+    const parts = name.split(" "); // Split by space
+    const firstPart = parts[0]; // Get "Hindi" or "English"
+    return firstPart.charAt(0).toUpperCase() + (firstPart.charAt(1) || "").toUpperCase(); // First two letters in uppercase
+  };
 
   return (
     <div className="bg-red-400 border-b py-3   lg:py-4 relative md:sticky top-0 navbar-main  border-blue-100 px-4  md:px-8 lg:px-16 xl:px-20">
@@ -317,8 +314,7 @@ setcurrencyappled(false)
           <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
         </div>
 
-
-        <div className="Contact-county-login-singnup flex items-center gap-4">
+        <div className="Contact-county-login-singnup flex items-center gap-1 lg:gap-4">
           <div className=" flex justify-start lg:justify-end">
             <Link
               href="/property-listing"
@@ -372,33 +368,93 @@ setcurrencyappled(false)
             </div>
           </a>
 
+          {/* Currency Controller  */}
+          <div className=" flex justify-center items-center ">
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => setcurrencyappled(true)}
+            >
+              <p className="text-xl lg:text-2xl font-semibold">{defaultcurrency.symble}</p>
+              <p>{defaultcurrency.code}</p>
+            </div>
+          </div>
+
+          {
+            currencyappled && (
+              <div className="fixed flex justify-center items-center bg-[rgba(0,0,0,0.6)] inset-0 p-4">
+              <div className="h-[32rem] w-[700px] rounded-xl p-6 bg-white shadow-lg overflow-y-scroll">
+ 
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-semibold text-gray-800">Select Your Currency</h3>
+               
+                </div>
+            
+ 
+                <div className="flex flex-wrap gap-4 ">
+                  {currency.map((currency) => (
+                    <button
+                      key={currency.code}
+                      onClick={() => handelCurrencySEt(currency)}
+                      className={`flex items-center gap-3 px-5 py-3 text-sm font-medium border rounded-full shadow-sm transition duration-300 ${
+                        currency.code === defaultcurrency.code
+                          ? "bg-blue-500 text-white border-blue-500"
+                          : "bg-gray-50 text-gray-700 hover:bg-gray-100 border-gray-300"
+                      }`}
+                    >
+             
+                      <span className="w-5 h-5 hidden   rounded-full bg-gray-300 lg:flex items-center justify-center text-xs">
+                        🌍
+                      </span>
+          
+                      <div>
+                        <p>{currency.symble} - {currency.code}</p>
+                        <p className="text-xs text-gray-500">{currency.country}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+
+            )
+          }
+
+
+
+
           <div className="flex  justify-between items-center   ">
             <div className="flex items-center space-x-2">
-             
-
-             
-
               {/* counry selction  */}
               <div className="ContrySection">
-               {countryLanguages.map(
-                  (lang,ind) =>
+                {countryLanguages.map(
+                  (lang, ind) =>
                     lang.langCode === selectedLang && (
                       <button
-                      key={ind}
+                        key={ind}
                         onClick={() => setCounrtyOpner(!countryOpner)}
-                        className="flex relative z-40 items-center space-x-1 text-[12px]  md:text-md"
+                        className="flex relative z-40 mx-2 items-center space-x-1 text-[12px]  md:text-md"
                       >
-                        <img src={lang.image}    className="w-6 h-6   md:w-8 md:h-8 rounded-full object-fill max-w-full"  alt="" />
-                        <span className="text-nowrap">{lang.name}</span>
+                        <img
+                          src={lang.image}
+                          className="w-6 h-6   md:w-8 md:h-8 rounded-full object-fill max-w-full"
+                          alt=""
+                        />
+                        <span className="text-nowrap hidden lg:block">{lang.name} </span>
+                        <span className="text-nowrap  block lg:hidden ">
+                        {getLangAbbreviation(lang.name)}
+                        </span>
                         <FaChevronDown
-                          className={`${countryOpner && "rotate-180"} hidden md:block`}
+                          className={`${
+                            countryOpner && "rotate-180"
+                          } hidden md:block`}
                         />
                       </button>
                     )
                 )}
 
                 {countryOpner && (
-                  <div className="fixed flex justify-center items-center bg-[rgba(0,0,0,0.5)] inset-0 p-4" >
+                  <div className="fixed flex justify-center items-center bg-[rgba(0,0,0,0.5)] inset-0 p-4">
                     <div className="h-[40rem] w-[800px] rounded-lg p-3 bg-white overflow-y-scroll">
                       <div className="space-y-5 ">
                         <div className="flex justify-between">
@@ -411,107 +467,99 @@ setcurrencyappled(false)
                           </button>
                         </div>
                         <div className="flex gap-11">
-
-<div >
-                        <p className="text-sm font-bold">Cureent Language</p>
-                        { countryLanguages.map(
-                          (lang) =>
-                            lang.langCode === selectedLang && (
-                              <div
-                                key={lang.langCode}
-                                className="flex items-center gap-2 cursor-pointer"
-                                onClick={()=>setcurrencyappled(false)}
-                              >
-                                <img
-                                  src={lang.image}
-                                  className="w-8 h-8 rounded-full object-fill max-w-full"
-                                  alt={lang.name}
-                                />
-                                <p>{lang.name}</p>
-                              </div>
-                            )
-                        )}
-                        </div>
-
-<div className="">
-<p className="text-sm font-bold">Cureent Currency</p>
-<div
-                            
-                            className="flex items-center gap-2 cursor-pointer"
-                            onClick={()=>setcurrencyappled(true)}
-                          >
-                           <p className="text-2xl font-semibold">{defaultcurrency.symble}</p>
-                            <p>{defaultcurrency.code}</p>
+                          <div>
+                            <p className="text-sm font-bold">
+                              Cureent Language
+                            </p>
+                            {countryLanguages.map(
+                              (lang) =>
+                                lang.langCode === selectedLang && (
+                                  <div
+                                    key={lang.langCode}
+                                    className="flex items-center gap-2 cursor-pointer"
+                                    onClick={() => setcurrencyappled(false)}
+                                  >
+                                    <img
+                                      src={lang.image}
+                                      className="w-8 h-8 rounded-full object-fill max-w-full"
+                                      alt={lang.name}
+                                    />
+                                    <p>{lang.name}</p>
+                                  </div>
+                                )
+                            )}
                           </div>
 
-</div>
-</div>
-
-
+                          {/* <div className="">
+                            <p className="text-sm font-bold">
+                              Cureent Currency
+                            </p>
+                            <div
+                              className="flex items-center gap-2 cursor-pointer"
+                              onClick={() => setcurrencyappled(true)}
+                            >
+                              <p className="text-2xl font-semibold">
+                                {defaultcurrency.symble}
+                              </p>
+                              <p>{defaultcurrency.code}</p>
+                            </div>
+                          </div> */}
+                        </div>
                       </div>
-
-
-                     
 
                       <div className="h-[2px] mt-5 bg-gray-200"></div>
 
-{!currencyappled &&
-
-                      <div className="Languages-choose">
-                        <h4 className="font-bold text-sm">All Languages</h4>
-                        <div className="grid grid-cols-2 sm:grid-cols-3  gap-4">
-                          {countryLanguages.map((lang, index) => (
-                            <div
-                              key={index}
-                              className="flex cursor-pointer  text-xs items-center gap-2 p-2 "
-                              onClick={() =>
-                                handleLanguageChange(lang.langCode)
-                              }
-                            >
-                              <img
-                                src={lang.image}
-                                alt={lang.name}
-                                className="w-12 h-12 rounded-full object-fill max-w-full"
-                              />
-                              <span>{lang.name}</span>
-                            </div>
-                          ))}
+                      {!currencyappled && (
+                        <div className="Languages-choose">
+                          <h4 className="font-bold text-sm">All Languages</h4>
+                          <div className="grid grid-cols-2 sm:grid-cols-3  gap-4">
+                            {countryLanguages.map((lang, index) => (
+                              <div
+                                key={index}
+                                className="flex cursor-pointer  text-xs items-center gap-2 p-2 "
+                                onClick={() =>
+                                  handleLanguageChange(lang.langCode)
+                                }
+                              >
+                                <img
+                                  src={lang.image}
+                                  alt={lang.name}
+                                  className="w-12 h-12 rounded-full object-fill max-w-full"
+                                />
+                                <span>{lang.name}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-}
+                      )}
 
+                      {currencyappled && (
+                        <div className="Languages-choose">
+                          <h4 className="font-bold text-sm">All Currency</h4>
+                          <div className="grid grid-cols-2 sm:grid-cols-5  gap-4">
+                            {currency.map((lang, index) => (
+                              <div
+                                key={index}
+                                className="flex flex-col items-center cursor-pointer  text-xs  gap-2 p-2  "
+                                onClick={() => handelCurrencySEt(lang)}
+                              >
+                                <p className="text-2xl font-bold">
+                                  {lang.symble}
+                                </p>
 
-{ currencyappled &&
-   <div className="Languages-choose">
-   <h4 className="font-bold text-sm">All Currency</h4>
-   <div className="grid grid-cols-2 sm:grid-cols-5  gap-4">
-     {currency.map((lang, index) => (
-       <div
-         key={index}
-         className="flex flex-col items-center cursor-pointer  text-xs  gap-2 p-2  "
-         onClick={() =>
-           handelCurrencySEt(lang)
-         }
-       >
-         <p className="text-2xl font-bold">{lang.symble}</p>
-
-        
-         <span>{lang.code} ({lang.country})</span>
-       </div>
-     ))}
-   </div>
- </div>
-}
-
-
+                                <span>
+                                  {lang.code} ({lang.country})
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
-
-
-
               </div>
- 
+
               {/* below md screen  */}
               <div className="">
                 <div
@@ -558,16 +606,17 @@ setcurrencyappled(false)
 
             {/* login and singup  */}
             <div className=" flex items-center justify-center space-x-4 mt-1   ">
-{userlogin &&  <Link href={"/user"}><FaUserCircle className="md:text-3xl mb-2 " /></Link>  }
-              {!userlogin &&
-              <Link
-                className="relative"
-               href={"/user/login"}
-              >
-                <div className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white px-6 py-2 font-semibold rounded-full text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-300 cursor-pointer">
-                  Login <span className="hidden md:inline"> or Signup</span>
-                </div>
-{/* 
+              {userlogin && (
+                <Link href={"/user"}>
+                  <FaUserCircle className="md:text-3xl mb-2 " />
+                </Link>
+              )}
+              {!userlogin && (
+                <Link className="relative" href={"/user/login"}>
+                  <div className="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 text-white px-3  lg:px-6 py-2 font-semibold rounded-full text-sm transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-300 cursor-pointer">
+                    Login <span className="hidden md:inline"> or Signup</span>
+                  </div>
+                  {/* 
                 {openDropdown === "signUp" && (
                   <div
                     className="absolute w-72 z-[999] top-full right-0 mt-2 bg-white text-black rounded-lg shadow-two"
@@ -731,9 +780,8 @@ setcurrencyappled(false)
                 ) : (
                   ""
                 )} */}
-              </Link>
-
-}
+                </Link>
+              )}
             </div>
           </div>
         </div>

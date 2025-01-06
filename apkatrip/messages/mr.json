@@ -12,8 +12,11 @@
     "flightHotel": "उड्डाण + हॉटेल",
     "trains": "रेल्वे",
     "bus": "बस",
-    "holidays": "सुट्टी",
-    "Insurance": "विमा",
+    "holidays": "सुट्ट्या",
+    "cab": "टॅक्सी",
+    "cruise": "क्रूझ",
+    "charter": "भाडेपट्टी",
+    "insurance": "विमा",
     "activities": "क्रिया"
   },
   "Navbar2": {

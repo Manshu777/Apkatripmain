@@ -11,9 +11,10 @@
       "hotels": "Hotels",
       "flightHotel": "Flug + Hotel",
       "trains": "Züge",
+      "cab": "cab",
       "bus": "Bus",
       "holidays": "Urlaub",
-      "Insurance": "Versicherung",
+      "insurance": "Versicherung",
       "activities": "Aktivitäten"
     },
     "Navbar2": {

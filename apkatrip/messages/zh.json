@@ -5,7 +5,7 @@
     },
     "Navbar": {
       "flight": "航班",
-      "about": "关于",
+      "about": "关于我们",
       "contact": "联系我们",
       "language": "语言",
       "hotels": "酒店",
@@ -13,7 +13,10 @@
       "trains": "火车",
       "bus": "巴士",
       "holidays": "假期",
-      "Insurance": "保险",
+      "cab": "出租车",
+      "cruise": "游轮",
+      "charter": "包机",
+      "insurance": "保险",
       "activities": "活动"
     },
     "Navbar2": {

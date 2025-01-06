@@ -13,7 +13,10 @@
   "trains": "Trains",
   "bus": "Bus",
   "holidays": "Vacances",
-  "cabs": "Taxis",
+  "cab": "Taxi",
+  "cruise": "Croisière",
+  "charter": "Charter",
+  "insurance": "Assurance",
   "activities": "Activités"
 },
 "Navbar2": {

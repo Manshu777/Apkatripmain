@@ -85,19 +85,19 @@ const Navbar = () => {
       link: "/activities",
     },
     {
-      name: "Cruise",
+      name: t("cruise"),
       className: "meuicowidth Cruisemenuico",
       class: "Cruise-icon",
       link: "/cruise",
     },
     {
-      name: "Charter",
+      name: t("charter"),
       className: "meuicowidth flightmenuico",
       class: "flight-icon",
       link: "/charter",
     },
     {
-      name: "Insurance",
+      name: t("insurance"),
       className: "meuicowidth Insurancenuico",
       class: "Inurance-icon",
       link: "/Insurance",

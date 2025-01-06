@@ -12,8 +12,11 @@
       "flightHotel": "Flyg + Hotell",
       "trains": "Tåg",
       "bus": "Buss",
-      "holidays": "Semester",
-      "Insurance": "Försäkring",
+      "holidays": "Semestrar",
+      "cab": "Taxi",
+      "cruise": "Kryssning",
+      "charter": "Charter",
+      "insurance": "Försäkring",
       "activities": "Aktiviteter"
     },
     "Navbar2": {
