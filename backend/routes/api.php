@@ -165,5 +165,10 @@ use App\Http\Controllers\HolidayspackageController;
 
 Route::get("/v1/search-holidays-package/{name}",[HolidayspackageController::class,"SearchHolidayspackage"]);
 Route::get("/v1/holidays-package/{name}",[HolidayspackageController::class,"GetHolidayPackage"]);
+Route::get("/v1/holidays/top",[HolidayspackageController::class,"getActivePackage"]);
 
+
+   use App\Http\Controllers\MyportsController;
+   
+   Route::get("/v1/ports/all/{name}",[MyportsController::class,"searchport"]);
 

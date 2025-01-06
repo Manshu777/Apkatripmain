@@ -11,6 +11,7 @@ import axios from "axios";
 import { toast, Flip } from "react-toastify";
 import { getAllcityes } from "../Store/slices/citysearchSlice";
 import { usePathname } from "next/navigation";
+import { apilink } from "../common";
 
 const AutoSearch = ({ value, onSelect, Click, fromCity }) => {
   const state = useSelector((state) => state.Allairport);
@@ -20,44 +21,40 @@ const AutoSearch = ({ value, onSelect, Click, fromCity }) => {
 
   const defaultAirports = [
     {
-      properties: {
+      
         iata: "DEL",
         municipality: "New Delhi",
         name: "Indira Gandhi International Airport",
-        country: { name: "India" },
-      },
+        country: "India" ,
+     
     },
     {
-      properties: {
+  
         iata: "BLR",
         municipality: "Bangalore",
         name: "Kempegowda International Airport",
-        country: { name: "India" },
-      },
+        country:  "India" 
     },
     {
-      properties: {
+      
         iata: "BKK",
         municipality: "Bangkok",
         name: "Suvarnabhumi Airport",
-        country: { name: "Thailand" },
-      },
+        country: "Thailand" 
     },
     {
-      properties: {
+      
         iata: "SIN",
         municipality: "Singapore",
         name: "Changi Airport",
-        country: { name: "Singapore" },
-      },
+        country:  "Singapore" 
     },
     {
-      properties: {
+    
         iata: "DXB",
         municipality: "Dubai",
         name: "Dubai International Airport",
-        country: { name: "UAE" },
-      },
+        country:  "UAE" 
     },
   ];
 
@@ -111,16 +108,16 @@ const AutoSearch = ({ value, onSelect, Click, fromCity }) => {
       
       if (debouncedValue.length >= 2) {
         setIsLoading(true);
-        setIsError(false);
+        setIsError(false);    
      
         try {
           const res = await axios.get(
-            `https://port-api.com/airport/search/${debouncedValue}`
+            `${apilink}/ports/all/${debouncedValue}`
           );
           
 
          
-          setAirports(res.data.features); // Assuming API returns "features" array
+          setAirports(res.data); // Assuming API returns "features" array
         } catch (error) {
           console.error("Error fetching airports:", error);
           setIsError(true);
@@ -186,12 +183,12 @@ const AutoSearch = ({ value, onSelect, Click, fromCity }) => {
               {airports.length > 0 ? (
                 <ul>
                   {airports.map((airport) => {
-                    if (!airport?.properties?.iata) {
+                    if (!airport?.iata) {
                       return null;
                     }
                     return (
                       <li
-                        key={airport.properties.iata} // Using airport.properties.iata
+                        key={airport.iata} // Using airport.iata
                         onClick={() => handleSelect(airport)}
                         className="border-b border-gray-200 py-3 px-2 hover:bg-gray-100"
                       >
@@ -204,15 +201,15 @@ const AutoSearch = ({ value, onSelect, Click, fromCity }) => {
                           <div>
                             <p>
                               <span className="font-semibold text-base">
-                                {`${airport.properties.municipality} (${airport.properties.iata})`}{" "}
+                                {`${airport.municipality} (${airport.iata})`}{" "}
                               </span>
                             </p>
                             <p className="text-xs font-medium mt-1 text-gray-600">
-                              {airport.properties.name}
+                              {airport.name}
                             </p>
                           </div>
                           <div className="flex items-end font-medium text-xs text-gray-600 ml-auto">
-                            {airport.properties.country.name}
+                            {airport.country.name}
                           </div>
                         </div>
                       </li>

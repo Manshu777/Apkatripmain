@@ -22,13 +22,17 @@ class TravelPackage extends Model
 
 "activite",
 "terms",
-"slug",];
+"slug",
+"is_active",
+"place_type",
+];
 
 
 protected $casts=[
     'images' => 'array',
     'activite' => 'array',
     'terms' => 'array',
+    "is_active"=>"boolean"
 ];
 
 
