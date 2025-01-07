@@ -216,9 +216,9 @@ const Header = () => {
 
   const handleCitySelect = (city) => {
     if (selectedOption === "from") {
-      setFromCity(city.properties);
+      setFromCity(city);
     } else if (selectedOption === "to") {
-      setToCity(city.properties);
+      setToCity(city);
     }
     setIsVisible(false);
   };
