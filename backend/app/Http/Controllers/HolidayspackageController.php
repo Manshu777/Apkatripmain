@@ -33,4 +33,13 @@ class HolidayspackageController extends Controller
 
 
     }
+
+public  function getActivePackage(){
+    $package=TravelPackage::where("is_active",true)->get();
+
+    return $package;
+}
+
+
+
 }
