@@ -478,30 +478,30 @@ const Header = () => {
       {
         heading: "Home",
         listData: [
-          {
+          {   
             link: "/",
             list: " ApkaTrip.com",
           },
-          {
-            link: "",
-            list: " Our Approach",
-          },
-          {
-            link: "",
-            list: " Responsibe Tourism",
-          },
+          // {
+          //   link: "",
+          //   list: " Our Approach",
+          // },
+          // {
+          //   link: "",
+          //   list: " Responsibe Tourism",
+          // },
           {
             link: "/ATI/loyalty-program/",
             list: "Membership & Loyalty Program",
           },
-          {
-            link: "",
-            list: "News & Updates",
-          },
-          {
-            link: "",
-            list: "Careers",
-          },
+          // {
+          //   link: "",
+          //   list: "News & Updates",
+          // },
+          // {
+          //   link: "",
+          //   list: "Careers",
+          // },
           {
             link: "/condition/privacy-policy",
             list: "Privacy Policy",
@@ -533,7 +533,7 @@ const Header = () => {
             list: "Group Tours",
           },
           {
-            link: "",
+            link: "/cabs",
             list: "Car Rental",
           },
           {
@@ -545,28 +545,28 @@ const Header = () => {
       {
         heading: "Travel Assistance",
         listData: [
-          {
-            link: "",
-            list: "Customer Support",
-          },
-          {
-            link: "",
-            list: "Check Booking Status",
-          },
+          // {
+          //   link: "",
+          //   list: "Customer Support",
+          // },
+          // {
+          //   link: "",
+          //   list: "Check Booking Status",
+          // },
           {
             link: "/web-check",
             list: "Web Check-in",
           },
+          // {
+          //   link: "",
+          //   list: "Flight Status",
+          // },
           {
-            link: "",
-            list: "Flight Status",
-          },
-          {
-            link: "",
+            link: "/TrainComponent/pnrcheck",
             list: "PNE Status Check",
           },
           {
-            link: "",
+            link: "/TrainComponent",
             list: "Local Guides",
           },
         ],
@@ -583,29 +583,29 @@ const Header = () => {
             link: "/hotels",
             list: "Hotels",
           },
-          {
-            link: "",
-            list: "Apartments",
-          },
-          {
-            link: "",
-            list: "Resorts",
-          },
+          // {
+          //   link: "",
+          //   list: "Apartments",
+          // },
+          // {
+          //   link: "",
+          //   list: "Resorts",
+          // },
 
-          {
-            link: "",
-            list: "Vilas",
-          },
+          // {
+          //   link: "",
+          //   list: "Vilas",
+          // },
 
-          {
-            link: "",
-            list: "Homestay",
-          },
+          // {
+          //   link: "",
+          //   list: "Homestay",
+          // },
 
-          {
-            link: "",
-            list: "Transfers",
-          },
+          // {
+          //   link: "",
+          //   list: "Transfers",
+          // },
 
           {
             link: "/buses",
@@ -616,7 +616,7 @@ const Header = () => {
             list: "Cruises",
           },
           {
-            link: "",
+            link: "/charter",
             list: "Charter Services",
           },
           {
@@ -627,53 +627,65 @@ const Header = () => {
             link: "/atl/atipro",
             list: "Elite Lucuary",
           },
-          {
-            link: "",
-            list: "Visa Services",
-          },
-          {
-            link: "",
-            list: "Forex Currency Exchange",
-          },
+          // {
+          //   link: "",
+          //   list: "Visa Services",
+          // },
+          // {
+          //   link: "",
+          //   list: "Forex Currency Exchange",
+          // },
           {
             link: "/train",
             list: "Train Services",
           },
-          {
-            link: "",
-            list: "Seminars & Conferences",
-          },
-          {
-            link: "",
-            list: "Advertisments",
-          },
+          // {
+          //   link: "",
+          //   list: "Seminars & Conferences",
+          // },
+          // {
+          //   link: "",
+          //   list: "Advertisments",
+          // },
         ],
       },
 
-      {
-        heading: "Blogs",
-        listData: [
-          {
-            link: "",
-            list: "Top 10 Must-Visit Destinations in 2024",
-          },
-          {
-            link: "",
-            list: "A Guide to Budget-Friendly Travel",
-          },
-          {
-            link: "",
-            list: "How to Plan a Perfect Family Vacation",
-          },
-          {
-            link: "",
-            list: "Exploring Offbeat Locations in India",
-          },
-        ],
-      },
+      // {
+      //   heading: "Blogs",
+      //   listData: [
+      //     {
+      //       link: "",
+      //       list: "Top 10 Must-Visit Destinations in 2024",
+      //     },
+      //     {
+      //       link: "",
+      //       list: "A Guide to Budget-Friendly Travel",
+      //     },
+      //     {
+      //       link: "",
+      //       list: "How to Plan a Perfect Family Vacation",
+      //     },
+      //     {
+      //       link: "",
+      //       list: "Exploring Offbeat Locations in India",
+      //     },
+      //   ],
+      // },
       {
         heading: "Business Assistance",
         listData: [
+          {
+            link: "/ATI/atimate",
+            list: "Business Associate",
+          },
+          {
+            link: "/ATI/atidesk",
+            list: "Corporate Travel Desk",
+          },
+          {
+            link: "/ATI/atipro",
+            list: "Elite Luxury",
+          },
           {
             link: "/user",
             list: "Extranet Login",
@@ -682,14 +694,14 @@ const Header = () => {
             link: "/property-listing",
             list: "List Your Property",
           },
-          {
-            link: "",
-            list: "Become an Affiliate",
-          },
-          {
-            link: "",
-            list: "Business Associates Support",
-          },
+          // {
+          //   link: "",
+          //   list: "Become an Affiliate",
+          // },
+          // {
+          //   link: "",
+          //   list: "Business Associates Support",
+          // },
         ],
       },
     ],
