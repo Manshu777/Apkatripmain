@@ -272,11 +272,7 @@ const page = () => {
           <li>
             <span>/</span>
           </li>
-          <li>
-            <Link href="" className="text-blue-600 font-semibold">
-              Hotels In Goa
-            </Link>
-          </li>
+       
           <li>
             <span>/</span>
           </li>

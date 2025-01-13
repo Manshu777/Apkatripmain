@@ -208,7 +208,7 @@ const togglePopup = () => setIsOpen(!isOpen);
 
 <div className="lg:px-20 py-5">
         <ul
-          className="flex space-x-2 text-sm text-gray-600 mt-5 mb-5"
+          className="flex space-x-2 text-s m text-gray-600 mt-5 mb-5"
           id="detpg_bread_crumbs"
         >
        <li>
@@ -219,16 +219,12 @@ const togglePopup = () => setIsOpen(!isOpen);
           <li>
             <span>/</span>
           </li>
-          <li>
-            <Link href="" className="text-blue-600 font-semibold">
-              Hotels In Goa
-            </Link>
-          </li>
+         
           <li>
             <span>/</span>
           </li>
           <li>
-            <span>Super Townhouse Candolim</span>
+         
           </li>
         </ul>
         { hotelinfo && !hotelinfo.isLoading &&  hotelinfo.info && hotelinfo.info.hoteldetail1 &&
