@@ -13,6 +13,8 @@
       "trains": "Züge",
       "cab": "cab",
       "bus": "Bus",
+      "charter" : "Charta",
+      "cruise" : "Kreuzfahrt",
       "holidays": "Urlaub",
       "insurance": "Versicherung",
       "activities": "Aktivitäten"

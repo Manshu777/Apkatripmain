@@ -4,7 +4,7 @@
       "description": "Bu, çok dilli web siteniz için örnek bir sayfadır."
     },
     "Navbar": {
-      "flight": "Uçuşlar",
+    "flight": "Uçuşlar",
   "about": "Hakkında",
   "contact": "İletişim",
   "language": "Dil",
@@ -15,7 +15,7 @@
   "holidays": "Tatil",
   "cab": "Taksi",
   "cruise": "Kruvaziyer",
-  "charter": "Charter",
+  "charter": "Kiralama",
   "insurance": "Sigorta",
   "activities": "Aktiviteler"
     },
