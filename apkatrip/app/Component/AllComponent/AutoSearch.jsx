@@ -36,6 +36,13 @@ const AutoSearch = ({ value, onSelect, Click, fromCity }) => {
         country:  "India" 
     },
     {
+      iata: "IXC",
+      municipality: "Chandigarh",
+      name: "Shaheed Bhagat Singh International Airport",
+      country: "India"
+  },
+  
+    {
       
         iata: "BKK",
         municipality: "Bangkok",
