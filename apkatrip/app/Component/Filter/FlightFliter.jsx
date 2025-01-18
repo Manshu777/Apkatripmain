@@ -30,36 +30,28 @@ const FlightFliter = ({airlines,handelFilter,handelnonstop}) => {
           <p className="font-bold text-[16px] mb-4"></p>
           <div data-testid="" className="flex justify-between w-full mb-4">
             <span className="checkmarkOuter">
-              <input  className="mr-2" 
-               type="checkbox"
-               name="nonStop"
-       
-               checked={filters.nonStop}
-               onChange={handleFilterChange} />
+            <input type="radio" className="mr-2" id="nonstop" name="nonstop" value="direct" onChange={(e)=>handelnonstop(e)} />
               <label >Non Stop</label>
             </span>
-            {/* <p className="text-[12px] text-gray-500">₹ 6,706</p> */}
           </div>
           <div data-testid="" className="flex justify-between w-full mb-4">
             <span className="checkmarkOuter">
-              <input type="checkbox" className="mr-2" />
+            <input type="radio" className="mr-2" name="airlines"  value='Indigo'  onClick={(e)=>handelFilter(e.target.value)} />
               <label>Refundable Fares</label>
             </span>
-            {/* <p className="text-[12px] text-gray-500">₹ 6,051</p> */}
           </div>
           <div data-testid="" className="flex justify-between w-full mb-4">
             <span className="checkmarkOuter">
-              <input type="checkbox" className="mr-2" />
+            <input type="radio" className="mr-2" name="airlines"  value='Indigo'  onClick={(e)=>handelFilter(e.target.value)} />
+            
               <label>IndiGo</label>
             </span>
-            {/* <p className="text-[12px] text-gray-500">₹ 6,664</p> */}
           </div>
           <div data-testid="" className="flex justify-between w-full mb-4">
             <span className="checkmarkOuter">
-              <input type="checkbox" className="mr-2" />
+            <input type="radio" className="mr-2" name="airlines"  value='Indigo'  onClick={(e)=>handelFilter(e.target.value)} />
               <label>Morning Departures</label>
             </span>
-            {/* <p className="text-[12px] text-gray-500">₹ 6,051</p> */}
           </div>
         </div>
 

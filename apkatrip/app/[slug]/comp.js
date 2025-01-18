@@ -30,6 +30,8 @@ import { getssrFlight } from "../Component/Store/slices/ssrRuleFlight";
 
 const comp = ({ slug }) => {
   const [faredata, setfareData] = useState([]);
+  const [isLoading, setisLoading] = useState([]);
+
   const dispatch = useDispatch();
 
   const returnstate = useSelector((state) => state.searchreturn);
@@ -54,11 +56,13 @@ const comp = ({ slug }) => {
   const selectedClass = params.get("selectedClass");
   const r_localFormattedDate = params.get("returndate");
   const date = new Date(selectedMinDate);
-const currencylist=useSelector(state=>state.currencySlice);
-const defaultcurrency= JSON.parse(localStorage.getItem("usercurrency")) || {symble:"₹",code:"INR",country:"India",}
-const cuntryprice=currencylist?.info?.rates?.[`${defaultcurrency.code}`] 
-//
-console.log(cuntryprice,"dscklsdvsvxc")
+  const currencylist = useSelector((state) => state.currencySlice);
+  const defaultcurrency = JSON.parse(localStorage.getItem("usercurrency")) || {
+    symble: "₹",
+    code: "INR",
+    country: "India",
+  };
+  const cuntryprice = currencylist?.info?.rates?.[`${defaultcurrency.code}`];
 
   const offset = 6 * 60 * 55 * 1000;
 
@@ -83,6 +87,7 @@ console.log(cuntryprice,"dscklsdvsvxc")
   }, [ssrFair]);
 
   useEffect(() => {
+  
     if (newtIp && fromCityCode && toCityCode && JourneyType == 1) {
       dispatch(
         searchFlightApi({
@@ -94,8 +99,8 @@ console.log(cuntryprice,"dscklsdvsvxc")
           OneStopFlight: false,
           JourneyType: JourneyType,
           PreferredAirlines: null,
-          Origin: fromCityCode,
-          Destination: toCityCode,
+          Origin: toCityCode,
+          Destination: fromCityCode,
           FlightCabinClass: selectedClass,
           PreferredDepartureTime: selectedMinDate,
           PreferredArrivalTime: prfdate || localFormattedDate,
@@ -130,12 +135,12 @@ console.log(cuntryprice,"dscklsdvsvxc")
     prfdate,
     localFormattedDate,
   ]);
-  
+
   const [state, setstate] = useState();
   const [state2, setstate2] = useState();
 
   const [airlines, setairlines] = useState([]);
- 
+
   useEffect(() => {
     setstate(info);
 
@@ -191,8 +196,6 @@ console.log(cuntryprice,"dscklsdvsvxc")
     );
   }, [returnstate]);
 
- 
-
   const [activeIndex, setActiveIndex] = useState(null);
 
   const [showDetailsIndex, setShowDetailsIndex] = useState();
@@ -203,6 +206,8 @@ console.log(cuntryprice,"dscklsdvsvxc")
   };
 
   const handelFilter = (value) => {
+
+
     if (value === "All") {
       setstate2([state?.data?.Response?.Results?.[0] || []]);
     } else {
@@ -213,34 +218,6 @@ console.log(cuntryprice,"dscklsdvsvxc")
 
       setstate2([filterdata]);
     }
-  };
-
-  const handelPrice = (info) => {
-    //   dispatch(Advance_searchApi({EndUserIp:newtIp,TraceId:traceid,AdultCount:adultCount,ChildCount:childCount,InfantCount:infantCount,ResultIndex:info.ResultIndex,Source:info.Source,IsLCC:info.IsLCC,IsRefundable:info.IsRefundable,AirlineRemark:info.AirlineRemark,
-
-    //     TripIndicator:info.Segments[0][0].TripIndicator,SegmentIndicator:info.Segments[0][0].SegmentIndicator,
-    //     AirlineCode:info.Segments[0][0].Airline.AirlineCode,AirlineName:info.Segments[0][0].Airline.AirlineName,FlightNumber:info.Segments[0][0].Airline.FlightNumber,FareClass:info.Segments[0][0].Airline.FareClass,OperatingCarrier:info.Segments[0][0].Airline.OperatingCarrier}))
-
-    // console.log({
-    //   EndUserIp: newtIp,
-    //   TraceId: traceid,
-    //   AdultCount: adultCount,
-    //   ChildCount: childCount,
-    //   InfantCount: infantCount,
-    //   ResultIndex: info.ResultIndex,
-    //   Source: info.Source,
-    //   IsLCC: info.IsLCC,
-    //   IsRefundable: info.IsRefundable,
-    //   AirlineRemark: info.AirlineRemark,
-
-    //   TripIndicator: info.Segments[0][0].TripIndicator,
-    //   SegmentIndicator: info.Segments[0][0].SegmentIndicator,
-    //   AirlineCode: info.Segments[0][0].Airline.AirlineCode,
-    //   AirlineName: info.Segments[0][0].Airline.AirlineName,
-    //   FlightNumber: info.Segments[0][0].Airline.FlightNumber,
-    //   FareClass: info.Segments[0][0].Airline.FareClass,
-    //   OperatingCarrier: info.Segments[0][0].Airline.OperatingCarrier,
-    // });
   };
 
   const handelnonstop = (e) => {
@@ -260,10 +237,10 @@ console.log(cuntryprice,"dscklsdvsvxc")
       setstate2([filterdata]);
     }
   };
+
   const togglePopup = (id, ResultIndex) => {
     dispatch(getfarequote({ ResultIndex, TraceId: traceid }));
-    // setfareData([data]);
-    // setPrice(ofprice);
+
 
     if (activePopup === id) {
       setActivePopup(null);
@@ -271,41 +248,22 @@ console.log(cuntryprice,"dscklsdvsvxc")
       setActivePopup(id);
     }
   };
-  const flightData = {
-    route: "New Delhi → Toronto",
-    flights: [
-      {
-        airline: "EgyptAir",
-        departure: "Fri, 14 Feb 25 - 11:20",
-        arrival: "Fri, 14 Feb 25 - 15:15",
-        baggage: "7 Kgs Cabin Baggage + 1 Piece Check-in Baggage",
-        flexibility: [
-          "Cancellation fee starts at ₹7,055",
-          "Date Change fee starts at ₹7,600",
-        ],
-        seatsMealsAndMore: "Complimentary Meals & Seats",
-        price: 18947,
-      },
-      {
-        airline: "EgyptAir",
-        departure: "Sat, 15 Feb 25 - 02:05",
-        arrival: "Sat, 15 Feb 25 - 07:00",
-        baggage: "7 Kgs Cabin Baggage + 2 Pieces Check-in Baggage",
-        flexibility: [
-          "Lower Cancellation fee at ₹4,247 onwards",
-          "Lower Date Change fee at ₹3,397",
-        ],
-        seatsMealsAndMore: "Complimentary Meals & Seats",
-        price: 29897,
-      },
-    ],
-  };
+
+  const saveDataInLocal = (flight) => {
+    let data = []
+
+    data.push(flight);
+    localStorage.setItem("checkOutFlightDetail", JSON.stringify(data));
+
+
+    window.location.href = "/flight/checkout";
+};
 
   return (
     <>
       {activePopup === "view-price" && srrFairdata && !ssrFair.isLoading && (
         <div className="fixed p-4 inset-0 flex  z-[9999] items-center justify-center bg-black bg-opacity-50  overflow-y-auto">
-          <div className="p-6  bg-gray-100  h-full md:max-h-screen relative">
+          <div className="p-6  bg-gray-100  h-auto md:max-h-screen relative">
             <MdCancel
               className="absolute top-2 right-2 text-2xl cursor-pointer"
               onClick={() => setActivePopup(null)}
@@ -324,8 +282,25 @@ console.log(cuntryprice,"dscklsdvsvxc")
 
                   <h3 className="text-lg font-semibold">{flight.airline}</h3>
                   <p className="text-sm text-gray-600">
-                    <strong>Departure:</strong> {flight.Destination.ArrTime} |{" "}
-                    <strong>Arrival:</strong> {flight.Origin.DepTime} |{" "}
+                    <strong>Departure:</strong>{" "}
+                    {new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    }).format(new Date(flight.Destination.ArrTime))}{" "}
+                    | <strong>Arrival:</strong>{" "}
+                    {new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    }).format(new Date(flight.Origin.DepTime))}{" "}
+                    |{" "}
                   </p>
 
                   <div className="mt-2">
@@ -352,7 +327,7 @@ console.log(cuntryprice,"dscklsdvsvxc")
                     <p className="text-sm text-gray-800 font-medium mt-2">
                       <strong>Tax:</strong>
                       <div className="grid grid-cols-3">
-                          {srrFairdata?.Results?.FareBreakdown?.[0]?.TaxBreakUp?.map(
+                        {srrFairdata?.Results?.FareBreakdown?.[0]?.TaxBreakUp?.map(
                           (taxinfo, index) => (
                             <p key={index}>
                               {taxinfo.key}: {taxinfo.value}
@@ -363,49 +338,61 @@ console.log(cuntryprice,"dscklsdvsvxc")
                     </p>
                   </div>
 
-                  <div className="mt-4  flex items-center justify-between">
+                  <div className="mt-4  flex flex-col justify-between">
                     <p className=" text-[13px] md:text-lg font-bold text-indigo-400">
-                     <span  className="block md:inline">Base price: {defaultcurrency.symble}</span> 
-                     {
-    (() => {
-      const baseFare = srrFairdata?.Results?.FareBreakdown?.[0]?.BaseFare || 0;
-      const price = baseFare * cuntryprice; // Calculate the price
-      const priceString = price.toFixed(2); // Format the price to 2 decimal places
-      const [integerPart, decimalPart] = priceString.split("."); // Split into integer and decimal parts
+                      <span className="block md:inline">
+                        Base price: {defaultcurrency.symble}
+                      </span>
+                      {(() => {
+                        const baseFare =
+                          srrFairdata?.Results?.FareBreakdown?.[0]?.BaseFare ||
+                          0;
+                        const price = baseFare * cuntryprice;
+                        const priceString = price.toFixed(2);
+                        const [integerPart, decimalPart] =
+                          priceString.split(".");
 
-      // Ensure the decimal part has exactly 2 digits
-      return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-    })()
-  }                    </p>
-                    <p className="  text-[13px] md:text-lg font-bold text-indigo-600">
-                     <span className="block md:inline">Total price: {defaultcurrency.symble}</span> 
-                     {(() => {
-    // Calculate BaseFare and TaxBreakUp
-    const baseFare = Number(srrFairdata?.Results?.FareBreakdown?.[0]?.BaseFare || 0);
-    const taxBreakUpTotal = srrFairdata?.Results?.FareBreakdown?.[0]?.TaxBreakUp?.reduce(
-      (acc, arr) => acc + Number(arr.value || 0),
-      0
-    ) || 0;
-
-    // Total price calculation
-    const totalPrice = (baseFare + taxBreakUpTotal) * cuntryprice;
-
-    // Format the price to two decimal places
-    const priceString = totalPrice.toFixed(2);
-
-    // Split into integer and decimal parts
-    const [integerPart, decimalPart] = priceString.split(".");
-
-    // Ensure the decimal part has exactly two digits
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
+                        return `${integerPart},${(decimalPart || "00").slice(
+                          0,
+                          2
+                        )}`;
+                      })()}
                     </p>
-                    <Link
-                      href="/flight/checkout"
-                      className="px-4 py-2 bg-blue-500 text-white  text-[13px] text-nowrap md:text-sm font-medium rounded hover:bg-blue-600"
+                    <p className="  text-[13px] md:text-lg font-bold text-indigo-600">
+                      <span className="block md:inline">
+                        Total price: {defaultcurrency.symble}
+                      </span>
+                      {(() => {
+                        const baseFare = Number(
+                          srrFairdata?.Results?.FareBreakdown?.[0]?.BaseFare ||
+                            0
+                        );
+                        const taxBreakUpTotal =
+                          srrFairdata?.Results?.FareBreakdown?.[0]?.TaxBreakUp?.reduce(
+                            (acc, arr) => acc + Number(arr.value || 0),
+                            0
+                          ) || 0;
+
+                        const totalPrice =
+                          (baseFare + taxBreakUpTotal) * cuntryprice;
+
+                        const priceString = totalPrice.toFixed(2);
+
+                        const [integerPart, decimalPart] =
+                          priceString.split(".");
+
+                        return `${integerPart},${(decimalPart || "00").slice(
+                          0,
+                          2
+                        )}`;
+                      })()}
+                    </p>
+                    <div
+                     onClick={()=>saveDataInLocal(flight)}
+                      className="px-4 py-2 text-center  bg-blue-500 text-white  text-[13px] text-nowrap md:text-sm font-medium rounded hover:bg-blue-600"
                     >
                       Book Now
-                    </Link>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -424,13 +411,141 @@ console.log(cuntryprice,"dscklsdvsvxc")
           />
         </div>
 
-        <div className={` w-full md:w-3/4 my-auto   `}>
+        <div className={` w-full md:w-3/4   `}>
           {state && state.isLoading && (
-            <div className="flex justify-center items-center w-full h-full px-2 md:px-5 py-3">
-              <img
-                src="/loder.png"
-                className="animate-spin w-[20%] duration-2000   "
-              />
+            <div className="overflow-hidden px-4">
+              <div className="my-3 w-full h-[120px]  lg:h-[160px] border p-2 md:p-5">
+                <div className=" ">
+                  <div className="flex animate-pulse items-center justify-between">
+                    <div className="flex gap-3">
+                      <div className="w-[50px] h-[50px] bg-gray-300 rounded"></div>
+                      <div className="hidden sm:block">
+                        <div className="h-4 bg-gray-300 rounded w-32 mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-20"></div>
+                      </div>
+                    </div>
+
+                    <div className=" text-center">
+                      <div className="h-4 bg-gray-300 rounded w-16 mb-2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
+                      <div className="relative h-3 bg-gray-300 rounded w-32"></div>
+                      <div className="h-3 bg-gray-300 rounded w-16 mt-2"></div>
+                    </div>
+
+                    <div className="hidden lg:block  text-center">
+                      <div className="h-4 bg-gray-300 rounded w-16 mb-2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                    </div>
+
+                    <div className=" hidden lg:flex  items-center gap-x-3">
+                      <div className="text-right flex-1">
+                        <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-24"></div>
+                      </div>
+                      <div className="h-8 bg-gray-300 rounded-full w-20"></div>
+                    </div>
+                  </div>
+
+                  <div className="my-4 p-2 bg-yellow-100 h-5 w-full"></div>
+
+                  <div className="hidden md:flex justify-between items-center text-sm card-footer-v2">
+                    <div className="h-4 bg-gray-300 rounded w-40"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="my-3 w-full h-[120px]  lg:h-[160px] border p-2 md:p-5">
+                <div className=" ">
+                  <div className="flex animate-pulse items-center justify-between">
+                    <div className="flex gap-3">
+                      <div className="w-[50px] h-[50px] bg-gray-300 rounded"></div>
+                      <div className="hidden sm:block">
+                        <div className="h-4 bg-gray-300 rounded w-32 mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-20"></div>
+                      </div>
+                    </div>
+
+                    <div className=" text-center">
+                      <div className="h-4 bg-gray-300 rounded w-16 mb-2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
+                      <div className="relative h-3 bg-gray-300 rounded w-32"></div>
+                      <div className="h-3 bg-gray-300 rounded w-16 mt-2"></div>
+                    </div>
+
+                    <div className="hidden lg:block  text-center">
+                      <div className="h-4 bg-gray-300 rounded w-16 mb-2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                    </div>
+
+                    <div className=" hidden lg:flex  items-center gap-x-3">
+                      <div className="text-right flex-1">
+                        <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-24"></div>
+                      </div>
+                      <div className="h-8 bg-gray-300 rounded-full w-20"></div>
+                    </div>
+                  </div>
+
+                  <div className="my-4 p-2 bg-yellow-100 h-5 w-full"></div>
+
+                  {/* Footer Skeleton */}
+                  <div className="hidden md:flex justify-between items-center text-sm card-footer-v2">
+                    <div className="h-4 bg-gray-300 rounded w-40"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="my-3 w-full h-[120px]  lg:h-[160px] border p-2 md:p-5">
+                <div className=" ">
+                  <div className="flex animate-pulse items-center justify-between">
+                    <div className="flex gap-3">
+                      <div className="w-[50px] h-[50px] bg-gray-300 rounded"></div>
+                      <div className="hidden sm:block">
+                        <div className="h-4 bg-gray-300 rounded w-32 mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-20"></div>
+                      </div>
+                    </div>
+
+                    <div className=" text-center">
+                      <div className="h-4 bg-gray-300 rounded w-16 mb-2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                    </div>
+
+                    <div className="text-center">
+                      <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
+                      <div className="relative h-3 bg-gray-300 rounded w-32"></div>
+                      <div className="h-3 bg-gray-300 rounded w-16 mt-2"></div>
+                    </div>
+
+                    <div className="hidden lg:block  text-center">
+                      <div className="h-4 bg-gray-300 rounded w-16 mb-2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-20"></div>
+                    </div>
+
+                    <div className=" hidden lg:flex  items-center gap-x-3">
+                      <div className="text-right flex-1">
+                        <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
+                        <div className="h-3 bg-gray-300 rounded w-24"></div>
+                      </div>
+                      <div className="h-8 bg-gray-300 rounded-full w-20"></div>
+                    </div>
+                  </div>
+
+                  <div className="my-4 p-2 bg-yellow-100 h-5 w-full"></div>
+
+                  {/* Footer Skeleton */}
+                  <div className="hidden md:flex justify-between items-center text-sm card-footer-v2">
+                    <div className="h-4 bg-gray-300 rounded w-40"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
           {info &&
@@ -441,7 +556,9 @@ console.log(cuntryprice,"dscklsdvsvxc")
             info.data.Response &&
             info.data.Response.ResponseStatus == 3 && (
               <div className="text-center">
-                <h1 className="mb-4 text-6xl font-semibold text-red-500">Oops!</h1>
+                <h1 className="mb-4 text-6xl font-semibold text-red-500">
+                  Oops!
+                </h1>
                 <p className="mb-4 text-lg text-gray-600"> Flight not found.</p>
                 <div className="animate-bounce">
                   <svg
@@ -474,7 +591,9 @@ console.log(cuntryprice,"dscklsdvsvxc")
             info.data.Response &&
             info.data.Response.ResponseStatus == 2 && (
               <div className="text-center">
-                <h1 className="mb-4 text-6xl font-semibold text-red-500">Oops!</h1>
+                <h1 className="mb-4 text-6xl font-semibold text-red-500">
+                  Oops!
+                </h1>
                 <p className="mb-4 text-lg text-gray-600"> Flight not found.</p>
                 <div className="animate-bounce">
                   <svg
@@ -501,7 +620,7 @@ console.log(cuntryprice,"dscklsdvsvxc")
               </div>
             )}
 
-          <div className="myshadow w-full flex bg-white gap-1  overflow-hidden">
+          <div className="myshadow w-full flex bg-white gap-1 px-4 overflow-hidden">
             {state2 &&
               state2.map((flightinfo) => {
                 return (
@@ -516,7 +635,10 @@ console.log(cuntryprice,"dscklsdvsvxc")
                             >
                               <div className="flex flex-col-reverse">
                                 {flight.Segments[0].map((info, index2) => (
-                                  <div className="flex items-center justify-between my-5" key={index2}>
+                                  <div
+                                    className="flex items-center justify-between my-5"
+                                    key={index2}
+                                  >
                                     <div className="flex gap-3">
                                       <img
                                         className="w-[50px]"
@@ -541,9 +663,9 @@ console.log(cuntryprice,"dscklsdvsvxc")
 
                                     <div className="text-center">
                                       <p className="mb-1 text-sm md:text-lg font-semibold">
-                                        {
-                                          info.Origin.DepTime.split("T")[1].slice(0,5)
-                                       }
+                                        {info.Origin.DepTime.split(
+                                          "T"
+                                        )[1].slice(0, 5)}
                                       </p>
                                       <p className="text-black text-xs">
                                         {info.Destination.Airport.CityName}
@@ -574,9 +696,9 @@ console.log(cuntryprice,"dscklsdvsvxc")
 
                                     <div className="text-center">
                                       <p className="mb-1 text-sm md:text-lg font-semibold">
-                                        {
-                                          info.Destination.ArrTime.split("T")[1].slice(0,5)
-                                       }
+                                        {info.Destination.ArrTime.split(
+                                          "T"
+                                        )[1].slice(0, 5)}
                                       </p>
                                       <p className="text-black text-xs">
                                         {info.Origin.Airport.CityName}{" "}
@@ -588,16 +710,24 @@ console.log(cuntryprice,"dscklsdvsvxc")
                                         <div className="text-right flex-1">
                                           <div className="text-black text-lg font-bold whitespace-nowrap ">
                                             <span className="text-sm md:text-lg font-bold">
-                                            {defaultcurrency.symble}
-                                            {(() => {
-    
-    const offeredFare = flight.Fare?.OfferedFare || 0;
-    const price = Number(offeredFare) * Number(cuntryprice); 
-    const priceString = price.toFixed(2); 
-    const [integerPart, decimalPart] = priceString.split(".");
-    return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
-    // return offeredFare;
-  })()}
+                                              {defaultcurrency.symble}
+                                              {(() => {
+                                                const offeredFare =
+                                                  flight.Fare?.OfferedFare || 0;
+                                                const price =
+                                                  Number(offeredFare) *
+                                                  Number(cuntryprice);
+                                                const priceString =
+                                                  price.toFixed(2);
+                                                const [
+                                                  integerPart,
+                                                  decimalPart,
+                                                ] = priceString.split(".");
+                                                return `${integerPart}.${(
+                                                  decimalPart || "00"
+                                                ).slice(0, 2)}`;
+                                                // return offeredFare;
+                                              })()}
                                             </span>
                                             <p className="text-sm text-gray-700 font-light leading-tight">
                                               Total Price
@@ -605,35 +735,46 @@ console.log(cuntryprice,"dscklsdvsvxc")
                                           </div>
                                         </div>
                                         <button
-                                    onClick={
-                                      () =>
-                                        togglePopup(
-                                          "view-price",
-                                          flight.ResultIndex,
-                                          
-                                        )
-                                      // handelPrice(flight)
-                                    }
-                                    className="block text-[11.5px]  md:text-sm font-semibold md:h-8 text-blue-600 rounded-full p-1 px-2 md:px-4 bg-blue-200 border border-blue-600"
-                                  >
-                                    <span className="hidden md:inline">VIEW</span> PRICES
-                                  </button>
+                                          onClick={
+                                            () =>
+                                              togglePopup(
+                                                "view-price",
+                                                flight.ResultIndex
+                                              )
+                                            // handelPrice(flight)
+                                          }
+                                          className="block text-[11.5px]  md:text-sm font-semibold md:h-8 text-blue-600 rounded-full p-1 px-2 md:px-4 bg-blue-200 border border-blue-600"
+                                        >
+                                          <span className="hidden md:inline">
+                                            VIEW
+                                          </span>{" "}
+                                          PRICES
+                                        </button>
                                       </div>
                                     ) : (
                                       <div className="flex items-center gap-x-3 opacity-0">
                                         <div className="text-right flex-1">
                                           <div className="text-black text-lg font-bold whitespace-nowrap ">
                                             <span className="text-sm md:text-lg font-bold">
-                                            {defaultcurrency.symble}
-                                            {(() => {
-   
-    const offeredFare = flight.Fare?.OfferedFare || 0;
-    const price = Number(offeredFare) * Number(cuntryprice); 
-    const priceString = price.toFixed(2); 
-    const [integerPart, decimalPart] = priceString.split("."); 
-    return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
-    // return offeredFare;
-  })()}                                            </span>
+                                              {defaultcurrency.symble}
+                                              {(() => {
+                                                const offeredFare =
+                                                  flight.Fare?.OfferedFare || 0;
+                                                const price =
+                                                  Number(offeredFare) *
+                                                  Number(cuntryprice);
+                                                const priceString =
+                                                  price.toFixed(2);
+                                                const [
+                                                  integerPart,
+                                                  decimalPart,
+                                                ] = priceString.split(".");
+                                                return `${integerPart}.${(
+                                                  decimalPart || "00"
+                                                ).slice(0, 2)}`;
+                                                // return offeredFare;
+                                              })()}{" "}
+                                            </span>
                                             <p className="text-sm text-gray-700 font-light leading-tight">
                                               Total Price
                                             </p>
@@ -880,7 +1021,6 @@ console.log(cuntryprice,"dscklsdvsvxc")
                                           </div>
 
                                           <div className="flex gap-10 flex-wrap mt-5">
-                               
                                             <div className="flex items-center gap-2 mb-2">
                                               <FaSpoon />
                                               <div className="text-sm">
@@ -928,23 +1068,36 @@ console.log(cuntryprice,"dscklsdvsvxc")
                                                     TOTAL
                                                   </th>
                                                   <th className="border border-gray-300 px-4 text-sm py-2 text-left">
-                                                  {defaultcurrency.symble}{" "}
-                                                  {(() => {
-    // Calculate the PublishedFare
-    const publishedFare = Number(flight.Fare?.PublishedFare || 0);
+                                                    {defaultcurrency.symble}{" "}
+                                                    {(() => {
+                                                      // Calculate the PublishedFare
+                                                      const publishedFare =
+                                                        Number(
+                                                          flight.Fare
+                                                            ?.PublishedFare || 0
+                                                        );
 
-    // Total price calculation
-    const totalPrice = publishedFare * cuntryprice;
+                                                      // Total price calculation
+                                                      const totalPrice =
+                                                        publishedFare *
+                                                        cuntryprice;
 
-    // Format the price to two decimal places
-    const priceString = totalPrice.toFixed(2);
+                                                      // Format the price to two decimal places
+                                                      const priceString =
+                                                        totalPrice.toFixed(2);
 
-    // Split into integer and decimal parts
-    const [integerPart, decimalPart] = priceString.split(".");
+                                                      // Split into integer and decimal parts
+                                                      const [
+                                                        integerPart,
+                                                        decimalPart,
+                                                      ] =
+                                                        priceString.split(".");
 
-    // Ensure the decimal part has exactly two digits
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
+                                                      // Ensure the decimal part has exactly two digits
+                                                      return `${integerPart},${(
+                                                        decimalPart || "00"
+                                                      ).slice(0, 2)}`;
+                                                    })()}
                                                   </th>
                                                 </tr>
                                               </thead>
@@ -955,14 +1108,26 @@ console.log(cuntryprice,"dscklsdvsvxc")
                                                     Base Fare
                                                   </td>
                                                   <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                    {defaultcurrency.symble} {(() => {
-    const baseFare = Number(flight.Fare?.BaseFare || 0);
-    const totalPrice = baseFare * cuntryprice;
-    const priceString = totalPrice.toFixed(2);
+                                                    {defaultcurrency.symble}{" "}
+                                                    {(() => {
+                                                      const baseFare = Number(
+                                                        flight.Fare?.BaseFare ||
+                                                          0
+                                                      );
+                                                      const totalPrice =
+                                                        baseFare * cuntryprice;
+                                                      const priceString =
+                                                        totalPrice.toFixed(2);
 
-    const [integerPart, decimalPart] = priceString.split(".");
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
+                                                      const [
+                                                        integerPart,
+                                                        decimalPart,
+                                                      ] =
+                                                        priceString.split(".");
+                                                      return `${integerPart},${(
+                                                        decimalPart || "00"
+                                                      ).slice(0, 2)}`;
+                                                    })()}
                                                   </td>
                                                 </tr>
                                                 <tr className="">
@@ -970,22 +1135,35 @@ console.log(cuntryprice,"dscklsdvsvxc")
                                                     Tax
                                                   </td>
                                                   <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                           {defaultcurrency.symble}  {(() => {
-    // Get the Tax and multiply by cuntryprice
-    const tax = Number(flight.Fare?.Tax || 0);
+                                                    {defaultcurrency.symble}{" "}
+                                                    {(() => {
+                                                      // Get the Tax and multiply by cuntryprice
+                                                      const tax = Number(
+                                                        flight.Fare?.Tax || 0
+                                                      );
 
-    // Calculate the total tax price
-    const totalTaxPrice = tax * cuntryprice;
+                                                      // Calculate the total tax price
+                                                      const totalTaxPrice =
+                                                        tax * cuntryprice;
 
-    // Format the price to two decimal places
-    const priceString = totalTaxPrice.toFixed(2);
+                                                      // Format the price to two decimal places
+                                                      const priceString =
+                                                        totalTaxPrice.toFixed(
+                                                          2
+                                                        );
 
-    // Split into integer and decimal parts
-    const [integerPart, decimalPart] = priceString.split(".");
+                                                      // Split into integer and decimal parts
+                                                      const [
+                                                        integerPart,
+                                                        decimalPart,
+                                                      ] =
+                                                        priceString.split(".");
 
-    // Ensure the decimal part has exactly two digits and return the formatted price
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
+                                                      // Ensure the decimal part has exactly two digits and return the formatted price
+                                                      return `${integerPart},${(
+                                                        decimalPart || "00"
+                                                      ).slice(0, 2)}`;
+                                                    })()}
                                                   </td>
                                                 </tr>
                                               </tbody>
@@ -1117,583 +1295,678 @@ console.log(cuntryprice,"dscklsdvsvxc")
                             </div>
                           ) : (
                             <div key={index} className="my-3 border p-2 md:p-5">
-                              <div className="flex items-center justify-between">
-                                {/* Airline Information */}
-                                <div className="flex gap-3">
-                                  <img
-                                    className="w-[50px]"
-                                    src={
-                                      flight.Segments[0][0].Airline.AirlineName
-                                        ? `/Images/${flight.Segments[0][0].Airline.AirlineCode}.png`
-                                        : "/Images/logo-flight.webp"
-                                    }
-                                    alt={`${
-                                      flight.Segments[0][0].Airline
-                                        .AirlineName || "Default"
-                                    } Logo`}
-                                  />
-                                  <div className="hidden sm:block ">
-                                    <p className="font-bold text-black">
-                                      {
+                              <>
+                                <div className="flex flex-wrap items-center justify-between gap-4">
+                                  <div className="flex gap-3 items-center w-full sm:w-auto">
+                                    <img
+                                      className="w-[40px] md:w-[50px]"
+                                      src={
                                         flight.Segments[0][0].Airline
                                           .AirlineName
+                                          ? `/Images/${flight.Segments[0][0].Airline.AirlineCode}.png`
+                                          : "/Images/logo-flight.webp"
                                       }
-                                    </p>
-                                    <p className="text-black text-xs">
-                                      {
+                                      alt={`${
                                         flight.Segments[0][0].Airline
-                                          .FlightNumber
-                                      }
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <div className="text-center">
-                                  <p className="mb-1 text-sm md:text-lg font-semibold">
-                                    {
-                                      flight.Segments[0][0].Origin.DepTime.split("T")[1].slice(0,5)
-                                    }
-                                  </p>
-                                  <p className="text-black text-xs">
-                                    {
-                                      flight.Segments[0][0].Destination.Airport
-                                        .CityName
-                                    }
-                                  </p>
-                                </div>
-
-                                {/* Flight Duration */}
-                                <div className="text-center">
-                                  <p className="text-center text-sm md:text-lg">
-                                    {Math.floor(
-                                      flight.Segments[0][0].Duration / 60
-                                    )}{" "}
-                                    h {flight.Segments[0][0].Duration % 60} Min
-                                  </p>
-                                  <div className="relative">
-                                    <p
-                                      style={{
-                                        borderTop:
-                                          "3px solid rgb(245, 166, 34)",
-                                      }}
-                                    ></p>
-                                  </div>
-                                  <p className="text-black text-xs mt-1">
-                                    {flight.stop}
-                                  </p>
-                                </div>
-
-                                {/* Arrival Time and City */}
-                                <div className="text-center">
-                                  <p className="mb-1 text-sm md:text-lg font-semibold">
-                                    {
-                                      flight.Segments[0][0].Destination.ArrTime.split("T")[1].slice(0,5)
-                                   }
-                                  </p>
-
-                                  <p className="text-black text-xs">
-                                    {
-                                      flight.Segments[0][0].Origin.Airport
-                                        .CityName
-                                    }{" "}
-                                  </p>
-                                </div>
-
-                                {/* Fare and View Price */}
-                                <div className="flex items-center gap-x-3">
-                                  <div className="text-right flex-1">
-                                    <div className="text-black text-lg font-bold whitespace-nowrap">
-                                      <span className="text-sm md:text-lg font-bold">
-                                        {defaultcurrency.symble} 
-                                        {(() => {
- 
-    const offeredFare = flight.Fare?.OfferedFare || 0;
-    const price = Number(offeredFare) * Number(cuntryprice); 
-    const priceString = price.toFixed(2); 
-    const [integerPart, decimalPart] = priceString.split("."); 
-    return `${integerPart}.${(decimalPart || "00").slice(0, 2)}`;
-
-    // return offeredFare;
-  })()}                                      </span>
-                                      <p className="text-sm text-gray-700 font-light leading-tight">
-                                        Total Price
+                                          .AirlineName || "Default"
+                                      } Logo`}
+                                    />
+                                    <div className="">
+                                      <p className="font-bold text-black text-sm md:text-base">
+                                        {
+                                          flight.Segments[0][0].Airline
+                                            .AirlineName
+                                        }
+                                      </p>
+                                      <p className="text-black text-xs md:text-sm">
+                                        {
+                                          flight.Segments[0][0].Airline
+                                            .FlightNumber
+                                        }
                                       </p>
                                     </div>
                                   </div>
-                                  <button
-                                    onClick={
-                                      () =>
+
+                                  <div className=" w-full flex md:hidden lg:hidden  ">
+                                    <div className="text-center w-1/3 sm:w-auto">
+                                      <p className="mb-1 text-sm md:text-lg font-semibold">
+                                        {flight.Segments[0][0].Origin.DepTime.split(
+                                          "T"
+                                        )[1].slice(0, 5)}
+                                      </p>
+                                      <p className="text-black text-xs">
+                                        {
+                                          flight.Segments[0][0].Destination
+                                            .Airport.CityName
+                                        }
+                                      </p>
+                                    </div>
+
+                                    <div className="text-center w-1/3 sm:w-auto">
+                                      <p className="text-sm md:text-lg">
+                                        {Math.floor(
+                                          flight.Segments[0][0].Duration / 60
+                                        )}{" "}
+                                        h {flight.Segments[0][0].Duration % 60}{" "}
+                                        Min
+                                      </p>
+                                      <div className="relative">
+                                        <p
+                                          style={{
+                                            borderTop:
+                                              "3px solid rgb(245, 166, 34)",
+                                          }}
+                                        ></p>
+                                      </div>
+                                      <p className="text-black text-xs mt-1">
+                                        {flight.stop}
+                                      </p>
+                                    </div>
+
+                                    <div className="text-center w-1/3 sm:w-auto">
+                                      <p className="mb-1 text-sm md:text-lg font-semibold">
+                                        {flight.Segments[0][0].Destination.ArrTime.split(
+                                          "T"
+                                        )[1].slice(0, 5)}
+                                      </p>
+                                      <p className="text-black text-xs">
+                                        {
+                                          flight.Segments[0][0].Origin.Airport
+                                            .CityName
+                                        }
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div className="text-center w-1/3 sm:w-auto  hidden md:block lg:block">
+                                    <p className="mb-1 text-sm md:text-lg font-semibold">
+                                      {flight.Segments[0][0].Origin.DepTime.split(
+                                        "T"
+                                      )[1].slice(0, 5)}
+                                    </p>
+                                    <p className="text-black text-xs">
+                                      {
+                                        flight.Segments[0][0].Destination
+                                          .Airport.CityName
+                                      }
+                                    </p>
+                                  </div>
+
+                                  <div className="text-center w-1/3 sm:w-auto hidden md:block lg:block">
+                                    <p className="text-sm md:text-lg">
+                                      {Math.floor(
+                                        flight.Segments[0][0].Duration / 60
+                                      )}{" "}
+                                      h {flight.Segments[0][0].Duration % 60}{" "}
+                                      Min
+                                    </p>
+                                    <div className="relative">
+                                      <p
+                                        style={{
+                                          borderTop:
+                                            "3px solid rgb(245, 166, 34)",
+                                        }}
+                                      ></p>
+                                    </div>
+                                    <p className="text-black text-xs mt-1">
+                                      {flight.stop}
+                                    </p>
+                                  </div>
+
+                                  <div className="text-center w-1/3 sm:w-auto hidden md:block lg:block ">
+                                    <p className="mb-1 text-sm md:text-lg font-semibold">
+                                      {flight.Segments[0][0].Destination.ArrTime.split(
+                                        "T"
+                                      )[1].slice(0, 5)}
+                                    </p>
+                                    <p className="text-black text-xs">
+                                      {
+                                        flight.Segments[0][0].Origin.Airport
+                                          .CityName
+                                      }
+                                    </p>
+                                  </div>
+
+                                  <div className="flex items-center gap-3 w-full justify-between lg:justify-center sm:w-auto">
+                                    <div className="text-right ">
+                                      <div className="text-black text-lg font-bold whitespace-nowrap">
+                                        <span className="text-sm md:text-lg font-bold">
+                                          {defaultcurrency.symble}
+                                          {(() => {
+                                            const offeredFare =
+                                              flight.Fare?.OfferedFare || 0;
+                                            const price =
+                                              Number(offeredFare) *
+                                              Number(cuntryprice);
+                                            const priceString =
+                                              price.toFixed(2);
+                                            const [integerPart, decimalPart] =
+                                              priceString.split(".");
+                                            return `${integerPart}.${(
+                                              decimalPart || "00"
+                                            ).slice(0, 2)}`;
+                                          })()}
+                                        </span>
+                                        <p className="text-sm text-gray-700 font-light leading-tight">
+                                          Total Price
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <button
+                                      onClick={() =>
                                         togglePopup(
                                           "view-price",
-                                          flight.ResultIndex,
-                                          
+                                          flight.ResultIndex
                                         )
-                                      // handelPrice(flight)
-                                    }
-                                    className="block text-[11.5px]  md:text-sm font-semibold md:h-8 text-blue-600 rounded-full p-1 px-2 md:px-4 bg-blue-200 border border-blue-600"
+                                      }
+                                      className="block text-[11.5px] md:text-sm font-semibold h-8 text-blue-600 rounded-full p-1 px-3 md:px-4 bg-blue-200 border border-blue-600"
+                                    >
+                                      <span className="hidden md:inline">
+                                        VIEW
+                                      </span>
+                                      PRICES
+                                    </button>
+                                  </div>
+
+                                  <p className="my-4 p-2 text-center bg-yellow-100 w-full">
+                                    <span className="text-[9px] md:text-xs">
+                                      {flight.offer}
+                                    </span>
+                                  </p>
+
+                                  <div
+                                    className="hidden md:flex justify-between items-center text-sm card-footer-v2 w-full"
+                                    onClick={() => toggle(index)}
                                   >
-                                    <span className="hidden md:inline">VIEW</span> PRICES
-                                  </button>
+                                    <span className="text-blue-600 flex items-center gap-2">
+                                      View Flight Details <FaArrowRight />
+                                    </span>
+                                  </div>
                                 </div>
-                              </div>
 
-                              {/* Flight Offer */}
-                              <p className="my-4 p-1 text-center bg-yellow-100">
-                                <span className="text-[9px] md:text-xs text-center">
-                                  {flight.offer}
-                                </span>
-                              </p>
+                                {showDetailsIndex === index && (
+                                  <div className="">
+                                    <nav className="my-4 flex justify-between m-0 p-0 bg-[#f6f4f4] w-full float-left rounded-[20px]">
+                                      <button
+                                        onClick={() => setActiveTab("1")}
+                                        className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
+                                          activeTab == "1"
+                                            ? "text-white rounded-full bg-[#2196f3]"
+                                            : ""
+                                        }`}
+                                      >
+                                        FLIGHT DETAILS
+                                      </button>
+                                      <button
+                                        onClick={() => setActiveTab("2")}
+                                        className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
+                                          activeTab == "2"
+                                            ? "text-white rounded-full bg-[#2196f3]"
+                                            : ""
+                                        }`}
+                                      >
+                                        FARE SUMMARY
+                                      </button>
+                                      <button
+                                        onClick={() => setActiveTab("3")}
+                                        className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
+                                          activeTab == "3"
+                                            ? "text-white rounded-full bg-[#2196f3]"
+                                            : ""
+                                        }`}
+                                      >
+                                        CANCELLATION
+                                      </button>
+                                      <button
+                                        onClick={() => setActiveTab("4")}
+                                        className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
+                                          activeTab == "4"
+                                            ? "text-white rounded-full bg-[#2196f3]"
+                                            : ""
+                                        }`}
+                                      >
+                                        DATE CHANGE
+                                      </button>
+                                    </nav>
 
-                              {/* Flight Details, Fare Summary, Cancellation, Date Change Tabs */}
-                              <div
-                                className="hidden md:flex justify-between items-center text-sm card-footer-v2"
-                                onClick={() => toggle(index)}
-                              >
-                                <span className="text-blue-600 flex items-center gap-2">
-                                  View Flight Details <FaArrowRight />
-                                </span>
-                              </div>
-
-                              {showDetailsIndex === index && (
-                                <div className="">
-                                  <nav className="my-4 flex justify-between m-0 p-0 bg-[#f6f4f4] w-full float-left rounded-[20px]">
-                                    <button
-                                      onClick={() => setActiveTab("1")}
-                                      className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
-                                        activeTab == "1"
-                                          ? "text-white rounded-full bg-[#2196f3]"
-                                          : ""
-                                      }`}
-                                    >
-                                      FLIGHT DETAILS
-                                    </button>
-                                    <button
-                                      onClick={() => setActiveTab("2")}
-                                      className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
-                                        activeTab == "2"
-                                          ? "text-white rounded-full bg-[#2196f3]"
-                                          : ""
-                                      }`}
-                                    >
-                                      FARE SUMMARY
-                                    </button>
-                                    <button
-                                      onClick={() => setActiveTab("3")}
-                                      className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
-                                        activeTab == "3"
-                                          ? "text-white rounded-full bg-[#2196f3]"
-                                          : ""
-                                      }`}
-                                    >
-                                      CANCELLATION
-                                    </button>
-                                    <button
-                                      onClick={() => setActiveTab("4")}
-                                      className={`cursor-pointer float-left p-2 list-none text-black text-sm w-[23%] text-center font-medium ${
-                                        activeTab == "4"
-                                          ? "text-white rounded-full bg-[#2196f3]"
-                                          : ""
-                                      }`}
-                                    >
-                                      DATE CHANGE
-                                    </button>
-                                  </nav>
-
-                                  {activeTab == "1" && (
-                                    <div className="">
-                                      <div>
-                                        <span className="border w-full p-2 text-sm font-bold">
-                                          {
-                                            flight.Segments[0][0].Origin.Airport
-                                              .CityName
-                                          }{" "}
-                                          to{" "}
-                                          {
-                                            flight.Segments[0][0].Destination
-                                              .Airport.CityName
-                                          }{" "}
-                                          , 20 Sep
-                                        </span>
-                                        <div className="">
-                                          <div className="flex items-center gap-5 my-4">
-                                            <img
-                                              src={
-                                                flight.Segments[0][0].Airline
-                                                  .AirlineName
-                                                  ? `/Images/${flight.Segments[0][0].Airline.AirlineCode}.png`
-                                                  : "/Images/logo-flight.webp"
-                                              }
-                                              alt=" "
-                                              className="w-6 h-6"
-                                            />
-                                            <span className="">
-                                              <strong>
-                                                {
+                                    {activeTab == "1" && (
+                                      <div className="">
+                                        <div>
+                                          <span className="border w-full p-2 text-sm font-bold">
+                                            {
+                                              flight.Segments[0][0].Origin
+                                                .Airport.CityName
+                                            }{" "}
+                                            to{" "}
+                                            {
+                                              flight.Segments[0][0].Destination
+                                                .Airport.CityName
+                                            }{" "}
+                                            , 20 Sep
+                                          </span>
+                                          <div className="">
+                                            <div className="flex items-center gap-5 my-4">
+                                              <img
+                                                src={
                                                   flight.Segments[0][0].Airline
                                                     .AirlineName
+                                                    ? `/Images/${flight.Segments[0][0].Airline.AirlineCode}.png`
+                                                    : "/Images/logo-flight.webp"
                                                 }
-                                              </strong>{" "}
-                                              <span className="text-gray-500">
-                                                {
-                                                  flight.Segments[0][0].Airline
-                                                    .FareClass
-                                                }
-                                                |{" "}
-                                                {
-                                                  flight.Segments[0][0].Airline
-                                                    .FlightNumber
-                                                }
+                                                alt=" "
+                                                className="w-6 h-6"
+                                              />
+                                              <span className="">
+                                                <strong>
+                                                  {
+                                                    flight.Segments[0][0]
+                                                      .Airline.AirlineName
+                                                  }
+                                                </strong>{" "}
+                                                <span className="text-gray-500">
+                                                  {
+                                                    flight.Segments[0][0]
+                                                      .Airline.FareClass
+                                                  }
+                                                  |{" "}
+                                                  {
+                                                    flight.Segments[0][0]
+                                                      .Airline.FlightNumber
+                                                  }
+                                                </span>
                                               </span>
-                                            </span>
-                                            <span className="border border-gray-400 text-xs px-2 rounded-full text-gray-400">
-                                              Airbus A350
-                                            </span>
-                                          </div>
-
-                                          <div className="flex gap-10">
-                                            <div className="flex items-center justify-between w-[50%]">
-                                              <div className="">
-                                                <p className="text-lg font-bold">
-                                                  {" "}
-                                                  {new Date(
-                                                    flight.Segments[0][0].Origin.DepTime
-                                                  ).toLocaleTimeString([], {
-                                                    hour: "2-digit",
-                                                    minute: "2-digit",
-                                                    hour12: true,
-                                                  })}
-                                                </p>
-                                                <p className="text-sm font-bold mb-2">
-                                                  {new Date(
-                                                    flight.Segments[0][0].Origin.DepTime
-                                                  ).toLocaleTimeString([], {
-                                                    year: "numeric",
-                                                    month: "long",
-                                                    day: "numeric",
-                                                  })}
-                                                </p>
-                                                <p className="text-gray-600">
-                                                  Terminal T3
-                                                </p>
-                                                <p className="text-sm">
-                                                  New Delhi, India
-                                                </p>
-                                              </div>
-                                              <div
-                                                className=" text-sm flex items-center"
-                                                style={{
-                                                  borderBottom:
-                                                    "3px solid rgb(245, 166, 34)",
-                                                }}
-                                              >
-                                                <p className="text-center text-sm md:text-lg">
-                                                  {Math.floor(
-                                                    flight.Segments[0][0]
-                                                      .Duration / 60
-                                                  )}
-                                                  .<font color="#757575"></font>
-                                                  {flight.Segments[0][0]
-                                                    .Duration % 60}{" "}
-                                                  h
-                                                  <font color="#757575"> </font>
-                                                </p>
-                                              </div>
-
-                                              <div className="">
-                                                <p className="text-lg font-bold">
-                                                  {
-                                                    flight.Segments[0][0].Destination.ArrTime
-                                                  }
-                                                </p>
-                                                <p className="text-sm font-bold mb-2">
-                                                  {
-                                                    flight.Segments[0][0].Destination.ArrTime
-                                                  }
-                                                </p>
-                                                <p className="text-gray-600">
-                                                  Terminal T2
-                                                </p>
-                                                <p className="text-sm">
-                                                  Bengaluru, India
-                                                </p>
-                                              </div>
+                                              <span className="border border-gray-400 text-xs px-2 rounded-full text-gray-400">
+                                                Airbus A350
+                                              </span>
                                             </div>
 
-                                            <div className="flex gap-10  w-[45%]">
-                                              <p>
-                                                <span className="font-bold text-sm">
-                                                  BAGGAGE:
-                                                </span>{" "}
-                                                <br />
-                                                <span className="text-gray-700">
-                                                  ADULT
-                                                </span>
-                                              </p>
-                                              <p>
-                                                <span className="font-bold text-sm">
-                                                  CHECK IN
-                                                </span>
-                                                {""}
-                                                <br />
-                                                <span className="text-gray-700">
-                                                  {flight.Segments[0][0].Baggage
-                                                    ? flight.Segments[0][0]
-                                                        .Baggage
-                                                    : "Not Allowed"}
-                                                </span>
-                                              </p>
-                                              <p>
-                                                <span className="font-bold text-sm">
-                                                  CABIN
-                                                </span>{" "}
-                                                <br />
-                                                <span className="text-gray-700">
-                                                  {" "}
-                                                  {
-                                                    flight.Segments[0][0]
-                                                      .CabinBaggage
-                                                  }
-                                                </span>
-                                              </p>
-                                            </div>
-                                          </div>
+                                            <div className="flex gap-10">
+                                              <div className="flex items-center justify-between w-[50%]">
+                                                <div className="">
+                                                  <p className="text-lg font-bold">
+                                                    {" "}
+                                                    {new Date(
+                                                      flight.Segments[0][0].Origin.DepTime
+                                                    ).toLocaleTimeString([], {
+                                                      hour: "2-digit",
+                                                      minute: "2-digit",
+                                                      hour12: true,
+                                                    })}
+                                                  </p>
+                                                  <p className="text-sm font-bold mb-2">
+                                                    {new Date(
+                                                      flight.Segments[0][0].Origin.DepTime
+                                                    ).toLocaleTimeString([], {
+                                                      year: "numeric",
+                                                      month: "long",
+                                                      day: "numeric",
+                                                    })}
+                                                  </p>
+                                                  <p className="text-gray-600">
+                                                    Terminal T3
+                                                  </p>
+                                                  <p className="text-sm">
+                                                    New Delhi, India
+                                                  </p>
+                                                </div>
+                                                <div
+                                                  className=" text-sm flex items-center"
+                                                  style={{
+                                                    borderBottom:
+                                                      "3px solid rgb(245, 166, 34)",
+                                                  }}
+                                                >
+                                                  <p className="text-center text-sm md:text-lg">
+                                                    {Math.floor(
+                                                      flight.Segments[0][0]
+                                                        .Duration / 60
+                                                    )}
+                                                    .
+                                                    <font color="#757575"></font>
+                                                    {flight.Segments[0][0]
+                                                      .Duration % 60}{" "}
+                                                    h
+                                                    <font color="#757575">
+                                                      {" "}
+                                                    </font>
+                                                  </p>
+                                                </div>
 
-                                          <div className="flex gap-10 flex-wrap mt-5">
-                                            <div className="flex items-center gap-2 mb-2">
-                                              <FaSpoon />
-                                              <div className="text-sm">
-                                                Complimentary Meals
+                                                <div className="">
+                                                  <p className="text-lg font-bold">
+                                                    {
+                                                      flight.Segments[0][0]
+                                                        .Destination.ArrTime
+                                                    }
+                                                  </p>
+                                                  <p className="text-sm font-bold mb-2">
+                                                    {
+                                                      flight.Segments[0][0]
+                                                        .Destination.ArrTime
+                                                    }
+                                                  </p>
+                                                  <p className="text-gray-600">
+                                                    Terminal T2
+                                                  </p>
+                                                  <p className="text-sm">
+                                                    Bengaluru, India
+                                                  </p>
+                                                </div>
+                                              </div>
+
+                                              <div className="flex gap-10  w-[45%]">
+                                                <p>
+                                                  <span className="font-bold text-sm">
+                                                    BAGGAGE:
+                                                  </span>{" "}
+                                                  <br />
+                                                  <span className="text-gray-700">
+                                                    ADULT
+                                                  </span>
+                                                </p>
+                                                <p>
+                                                  <span className="font-bold text-sm">
+                                                    CHECK IN
+                                                  </span>
+                                                  {""}
+                                                  <br />
+                                                  <span className="text-gray-700">
+                                                    {flight.Segments[0][0]
+                                                      .Baggage
+                                                      ? flight.Segments[0][0]
+                                                          .Baggage
+                                                      : "Not Allowed"}
+                                                  </span>
+                                                </p>
+                                                <p>
+                                                  <span className="font-bold text-sm">
+                                                    CABIN
+                                                  </span>{" "}
+                                                  <br />
+                                                  <span className="text-gray-700">
+                                                    {" "}
+                                                    {
+                                                      flight.Segments[0][0]
+                                                        .CabinBaggage
+                                                    }
+                                                  </span>
+                                                </p>
                                               </div>
                                             </div>
-                                            <div className="flex items-center gap-2 mb-2">
-                                              <FaPlane />
-                                              <div className="text-sm">
-                                                3-3-3 Layout
+
+                                            <div className="flex gap-10 flex-wrap mt-5">
+                                              <div className="flex items-center gap-2 mb-2">
+                                                <FaSpoon />
+                                                <div className="text-sm">
+                                                  Complimentary Meals
+                                                </div>
                                               </div>
-                                            </div>
-                                            <div className="flex items-center gap-2 mb-2">
-                                              <FaWheelchair />
-                                              <div className="text-sm">
-                                                Standard Recliner (31'' Legroom)
+                                              <div className="flex items-center gap-2 mb-2">
+                                                <FaPlane />
+                                                <div className="text-sm">
+                                                  3-3-3 Layout
+                                                </div>
                                               </div>
-                                            </div>
-                                            <div className="flex items-center gap-2 mb-2">
-                                              <FaUsb />
-                                              <div className="text-sm">
-                                                Power and USB Available
+                                              <div className="flex items-center gap-2 mb-2">
+                                                <FaWheelchair />
+                                                <div className="text-sm">
+                                                  Standard Recliner (31''
+                                                  Legroom)
+                                                </div>
+                                              </div>
+                                              <div className="flex items-center gap-2 mb-2">
+                                                <FaUsb />
+                                                <div className="text-sm">
+                                                  Power and USB Available
+                                                </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  )}
+                                    )}
 
-                                  {activeTab == "2" && (
-                                    <div>
+                                    {activeTab == "2" && (
                                       <div>
-                                        <span className="border w-full p-2 text-sm font-bold">
-                                          Fare breakup
-                                        </span>
-                                        <div className="mt-4">
-                                          <table className="min-w-full table-auto border-collapse border border-gray-300">
-                                            <thead>
-                                              <tr className="">
-                                                <th className="border border-gray-300 px-4 py-2 text-sm text-left">
-                                                  TOTAL
-                                                </th>
-                                                <th className="border border-gray-300 px-4 text-sm py-2 text-left">
-                                                  {defaultcurrency.symble}  {(() => {
-    // Get the PublishedFare and multiply by cuntryprice
-    const publishedFare = Number(flight.Fare?.PublishedFare || 0);
+                                        <div>
+                                          <span className="border w-full p-2 text-sm font-bold">
+                                            Fare breakup
+                                          </span>
+                                          <div className="mt-4">
+                                            <table className="min-w-full table-auto border-collapse border border-gray-300">
+                                              <thead>
+                                                <tr className="">
+                                                  <th className="border border-gray-300 px-4 py-2 text-sm text-left">
+                                                    TOTAL
+                                                  </th>
+                                                  <th className="border border-gray-300 px-4 text-sm py-2 text-left">
+                                                    {defaultcurrency.symble}{" "}
+                                                    {(() => {
+                                                      const publishedFare =
+                                                        Number(
+                                                          flight.Fare
+                                                            ?.PublishedFare || 0
+                                                        );
 
-    // Calculate the total price
-    const totalPrice = publishedFare * cuntryprice;
+                                                      const totalPrice =
+                                                        publishedFare *
+                                                        cuntryprice;
 
-    // Format the total price to two decimal places
-    const priceString = totalPrice.toFixed(2);
+                                                      const priceString =
+                                                        totalPrice.toFixed(2);
 
-    // Split into integer and decimal parts
-    const [integerPart, decimalPart] = priceString.split(".");
+                                                      const [
+                                                        integerPart,
+                                                        decimalPart,
+                                                      ] =
+                                                        priceString.split(".");
 
-    // Ensure the decimal part has exactly two digits and return the formatted price
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
-                                                </th>
-                                              </tr>
-                                            </thead>
+                                                      // Ensure the decimal part has exactly two digits and return the formatted price
+                                                      return `${integerPart},${(
+                                                        decimalPart || "00"
+                                                      ).slice(0, 2)}`;
+                                                    })()}
+                                                  </th>
+                                                </tr>
+                                              </thead>
 
-                                            <tbody>
-                                              <tr>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  Base Fare
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  {defaultcurrency.symble}  {(() => {
-    // Get the BaseFare and multiply by cuntryprice
-    const baseFare = Number(flight.Fare?.BaseFare || 0);
+                                              <tbody>
+                                                <tr>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    Base Fare
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    {defaultcurrency.symble}{" "}
+                                                    {(() => {
+                                                      const baseFare = Number(
+                                                        flight.Fare?.BaseFare ||
+                                                          0
+                                                      );
 
-    // Calculate the total price
-    const totalPrice = baseFare * cuntryprice;
+                                                      // Calculate the total price
+                                                      const totalPrice =
+                                                        baseFare * cuntryprice;
 
-    // Format the total price to two decimal places
-    const priceString = totalPrice.toFixed(2);
+                                                      // Format the total price to two decimal places
+                                                      const priceString =
+                                                        totalPrice.toFixed(2);
 
-    // Split into integer and decimal parts
-    const [integerPart, decimalPart] = priceString.split(".");
+                                                      // Split into integer and decimal parts
+                                                      const [
+                                                        integerPart,
+                                                        decimalPart,
+                                                      ] =
+                                                        priceString.split(".");
 
-    // Ensure the decimal part has exactly two digits and return the formatted price
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
-                                                </td>
-                                              </tr>
-                                              <tr className="">
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  Tax
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                {defaultcurrency.symble}  {(() => {
-    // Get the Tax and multiply by cuntryprice
-    const tax = Number(flight.Fare?.Tax || 0);
+                                                      // Ensure the decimal part has exactly two digits and return the formatted price
+                                                      return `${integerPart},${(
+                                                        decimalPart || "00"
+                                                      ).slice(0, 2)}`;
+                                                    })()}
+                                                  </td>
+                                                </tr>
+                                                <tr className="">
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    Tax
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    {defaultcurrency.symble}{" "}
+                                                    {(() => {
+                                                      // Get the Tax and multiply by cuntryprice
+                                                      const tax = Number(
+                                                        flight.Fare?.Tax || 0
+                                                      );
 
-    // Calculate the total tax price
-    const totalTaxPrice = tax * cuntryprice;
+                                                      // Calculate the total tax price
+                                                      const totalTaxPrice =
+                                                        tax * cuntryprice;
 
-    // Format the price to two decimal places
-    const priceString = totalTaxPrice.toFixed(2);
+                                                      // Format the price to two decimal places
+                                                      const priceString =
+                                                        totalTaxPrice.toFixed(
+                                                          2
+                                                        );
 
-    // Split into integer and decimal parts
-    const [integerPart, decimalPart] = priceString.split(".");
+                                                      // Split into integer and decimal parts
+                                                      const [
+                                                        integerPart,
+                                                        decimalPart,
+                                                      ] =
+                                                        priceString.split(".");
 
-    // Ensure the decimal part has exactly two digits and return the formatted price
-    return `${integerPart},${(decimalPart || "00").slice(0, 2)}`;
-  })()}
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
+                                                      // Ensure the decimal part has exactly two digits and return the formatted price
+                                                      return `${integerPart},${(
+                                                        decimalPart || "00"
+                                                      ).slice(0, 2)}`;
+                                                    })()}
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  )}
+                                    )}
 
-                                  {activeTab == "3" && (
-                                    <div
-                                      id="Tab-1-tabpane-3"
-                                      className="fade tab-pane"
-                                    >
-                                      <div className="">
-                                        <span className="border w-full p-2 text-sm font-bold ">
-                                          Cancellation Policy
-                                        </span>
-                                        <div className="mt-4">
-                                          <table className="min-w-full table-auto border-collapse border border-gray-300">
-                                            <thead>
-                                              <tr className="">
-                                                <th className="border border-gray-300 px-4 py-2 text-sm text-left">
-                                                  Time Frame
-                                                </th>
-                                                <th className="border border-gray-300 px-4 text-sm py-2 text-left">
-                                                  Airline Fee + Apka Trip Fee
-                                                  (Per Passenger)
-                                                </th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  0 hours to 4 hours*
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  Non Refundable
-                                                </td>
-                                              </tr>
-                                              <tr className="">
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  4 hours to 4 days*
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  ₹ 3,999 + ₹ 300
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  4 days to 365 days*
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  ₹ 2,999 + ₹ 300
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
+                                    {activeTab == "3" && (
+                                      <div
+                                        id="Tab-1-tabpane-3"
+                                        className="fade tab-pane"
+                                      >
+                                        <div className="">
+                                          <span className="border w-full p-2 text-sm font-bold ">
+                                            Cancellation Policy
+                                          </span>
+                                          <div className="mt-4">
+                                            <table className="min-w-full table-auto border-collapse border border-gray-300">
+                                              <thead>
+                                                <tr className="">
+                                                  <th className="border border-gray-300 px-4 py-2 text-sm text-left">
+                                                    Time Frame
+                                                  </th>
+                                                  <th className="border border-gray-300 px-4 text-sm py-2 text-left">
+                                                    Airline Fee + Apka Trip Fee
+                                                    (Per Passenger)
+                                                  </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    0 hours to 4 hours*
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    Non Refundable
+                                                  </td>
+                                                </tr>
+                                                <tr className="">
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    4 hours to 4 days*
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    ₹ 3,999 + ₹ 300
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    4 days to 365 days*
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    ₹ 2,999 + ₹ 300
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  )}
+                                    )}
 
-                                  {activeTab == "4" && (
-                                    <div
-                                      id="Tab-1-tabpane-4"
-                                      className="fade tab-pane"
-                                    >
-                                      <div className="">
-                                        <span className="border w-full p-2 text-sm font-bold ">
-                                          Date Change Policy
-                                        </span>
-                                        <div className="overflow-x-auto mt-4">
-                                          <table className="min-w-full table-auto border-collapse border border-gray-300">
-                                            <thead>
-                                              <tr className="">
-                                                <th className="border border-gray-300 px-4 py-2 text-sm text-left">
-                                                  Time Frame
-                                                </th>
-                                                <th className="border border-gray-300 px-4 py-2 text-sm text-left">
-                                                  Airline Fee + Apka Trip Fee
-                                                  (Per Passenger)
-                                                </th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  0 hours to 4 hours*
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  ADULT : <b>Non Changeable </b>
-                                                </td>
-                                              </tr>
-                                              <tr className="">
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  4 hours to 4 days*
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  ADULT :{" "}
-                                                  <b>
-                                                    ₹ 2,999 + ₹ 300 + Fare
-                                                    difference
-                                                  </b>
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  4 days to 365 days*
-                                                </td>
-                                                <td className="border border-gray-300 px-4 py-2 text-sm ">
-                                                  ADULT :{" "}
-                                                  <b>
-                                                    ₹ 2,250 + ₹ 300 + Fare
-                                                    difference
-                                                  </b>
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
+                                    {activeTab == "4" && (
+                                      <div
+                                        id="Tab-1-tabpane-4"
+                                        className="fade tab-pane"
+                                      >
+                                        <div className="">
+                                          <span className="border w-full p-2 text-sm font-bold ">
+                                            Date Change Policy
+                                          </span>
+                                          <div className="overflow-x-auto mt-4">
+                                            <table className="min-w-full table-auto border-collapse border border-gray-300">
+                                              <thead>
+                                                <tr className="">
+                                                  <th className="border border-gray-300 px-4 py-2 text-sm text-left">
+                                                    Time Frame
+                                                  </th>
+                                                  <th className="border border-gray-300 px-4 py-2 text-sm text-left">
+                                                    Airline Fee + Apka Trip Fee
+                                                    (Per Passenger)
+                                                  </th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                <tr>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    0 hours to 4 hours*
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    ADULT :{" "}
+                                                    <b>Non Changeable </b>
+                                                  </td>
+                                                </tr>
+                                                <tr className="">
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    4 hours to 4 days*
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    ADULT :{" "}
+                                                    <b>
+                                                      ₹ 2,999 + ₹ 300 + Fare
+                                                      difference
+                                                    </b>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    4 days to 365 days*
+                                                  </td>
+                                                  <td className="border border-gray-300 px-4 py-2 text-sm ">
+                                                    ADULT :{" "}
+                                                    <b>
+                                                      ₹ 2,250 + ₹ 300 + Fare
+                                                      difference
+                                                    </b>
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  )}
-                                </div>
-                              )}
+                                    )}
+                                  </div>
+                                )}
+                              </>
                             </div>
                           )}
                         </>
@@ -2686,7 +2959,6 @@ console.log(cuntryprice,"dscklsdvsvxc")
             </div>
           </div>
         )}
-        
       </div>
     </>
   );

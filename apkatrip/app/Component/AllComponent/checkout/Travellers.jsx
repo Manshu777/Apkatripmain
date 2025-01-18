@@ -17,9 +17,11 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import Image from "next/image";
 
-const page = ({ setActiveTab }) => {
+const page = ({ setActiveTab,fdatas }) => {
   // const [inuranceShowMOre,setInuranceShowMOre]=useState(false)
   const [insuranceHide, setInsurance] = useState(false);
+
+  console.log('fdatas',fdatas)
 
   const [cardDetailsError, setCardDetailsError] = useState(false);
 
@@ -146,6 +148,8 @@ const page = ({ setActiveTab }) => {
     setActiveOption(id);
   };
 
+
+  console.log(fdatas)
   return (
     <div className="">
       <div className="md:grid md:grid-cols-6 gap-5 mt-3">
@@ -169,7 +173,7 @@ const page = ({ setActiveTab }) => {
                 <div className="flex items-center gap-3 text-md md:text-xl">
                   <IoAirplaneSharp className=" font-bold -rotate-45" />
                   <div className="flex items-center gap-1">
-                    <h4 className="">Delhi -Mumabi</h4>
+                    <h4 className="">Delhi   -Mumabi</h4>
                     <p className="border-s-2 border-black px-2  text-sm">
                       Fri-20Sept2024
                     </p>

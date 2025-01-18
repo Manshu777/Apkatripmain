@@ -800,7 +800,7 @@ const Header = () => {
 
 
 
-  console.log('wfvrwfrwfwf',CaldataOrg?.SearchResults)
+
   
 
   const tileContent2 = ({ date, view }) => {
